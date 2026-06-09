@@ -1,0 +1,23 @@
+# .NET / ASP.NET Core
+bin/
+obj/
+
+# Visual Studio / Rider / JetBrains
+.vs/
+.idea/
+*.user
+*.suo
+*.cache
+*.log
+
+# App settings (secrets)
+appsettings.Development.json
+appsettings.Production.json
+
+# Entity Framework Core
+Migrations/*Designer.cs
+Migrations/*.Snapshot.cs
+
+# OS files
+.DS_Store
+Thumbs.db
