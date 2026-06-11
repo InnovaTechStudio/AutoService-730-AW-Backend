@@ -1,5 +1,5 @@
 {
-  "version": 3,
+  "version": 4,
   "targets": {
     "net10.0": {
       "BCrypt.Net-Next/4.2.0": {
@@ -4277,19 +4277,19 @@
     ]
   },
   "packageFolders": {
-    "/Users/rodrigo/.nuget/packages/": {}
+    "C:\\Users\\juans\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/rodrigo/Downloads/AutoServiceAW/AutoServiceAW.API/AutoServiceAW.API.csproj",
+      "projectUniqueName": "C:\\Users\\juans\\OneDrive\\Documentos\\UNIVERSIDAD\\APLICACIONES WEB\\RIDER\\BACKEND-AUTOSERVICE\\BACKENDAS\\AutoService-730-AW-Backend\\AutoServiceAW.API\\AutoServiceAW.API.csproj",
       "projectName": "AutoServiceAW.API",
-      "projectPath": "/Users/rodrigo/Downloads/AutoServiceAW/AutoServiceAW.API/AutoServiceAW.API.csproj",
-      "packagesPath": "/Users/rodrigo/.nuget/packages/",
-      "outputPath": "/Users/rodrigo/Downloads/AutoServiceAW/AutoServiceAW.API/obj/",
+      "projectPath": "C:\\Users\\juans\\OneDrive\\Documentos\\UNIVERSIDAD\\APLICACIONES WEB\\RIDER\\BACKEND-AUTOSERVICE\\BACKENDAS\\AutoService-730-AW-Backend\\AutoServiceAW.API\\AutoServiceAW.API.csproj",
+      "packagesPath": "C:\\Users\\juans\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\juans\\OneDrive\\Documentos\\UNIVERSIDAD\\APLICACIONES WEB\\RIDER\\BACKEND-AUTOSERVICE\\BACKENDAS\\AutoService-730-AW-Backend\\AutoServiceAW.API\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "/Users/rodrigo/.nuget/NuGet/NuGet.Config"
+        "C:\\Users\\juans\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net10.0"
@@ -4299,6 +4299,7 @@
       },
       "frameworks": {
         "net10.0": {
+          "framework": "net10.0",
           "targetAlias": "net10.0",
           "projectReferences": {}
         }
@@ -4317,6 +4318,7 @@
     },
     "frameworks": {
       "net10.0": {
+        "framework": "net10.0",
         "targetAlias": "net10.0",
         "dependencies": {
           "BCrypt.Net-Next": {
@@ -4381,7 +4383,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/10.0.300/PortableRuntimeIdentifierGraph.json",
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.300/PortableRuntimeIdentifierGraph.json",
         "packagesToPrune": {
           "Microsoft.AspNetCore": "(,10.0.32767]",
           "Microsoft.AspNetCore.Antiforgery": "(,10.0.32767]",
