@@ -27,9 +27,7 @@
 
     <ItemGroup>
       <Folder Include="WorkshopOperations\Application\" />
-      <Folder Include="WorkshopOperations\Domain\Services\" />
       <Folder Include="WorkshopOperations\Infrastructure\" />
-      <Folder Include="WorkshopOperations\Interfaces\" />
     </ItemGroup>
 
 </Project>
