@@ -25,4 +25,12 @@
         <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="8.18.0" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="WorkshopOperations\Application\" />
+      <Folder Include="WorkshopOperations\Domain\Repositories\" />
+      <Folder Include="WorkshopOperations\Domain\Services\" />
+      <Folder Include="WorkshopOperations\Infrastructure\" />
+      <Folder Include="WorkshopOperations\Interfaces\" />
+    </ItemGroup>
+
 </Project>
