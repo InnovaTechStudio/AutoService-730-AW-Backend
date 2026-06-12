@@ -1,9 +1,11 @@
-﻿namespace AutoServiceAW.API.WorkshopOperations.Domain.Services;
+﻿using Task = AutoServiceAW.API.WorkshopOperations.Domain.Model.Aggregates.Task;
+
+namespace AutoServiceAW.API.WorkshopOperations.Domain.Services;
 
 /// <summary>
 /// Defines the application service contract for coordinating individual task lifecycles, tracking statuses, and mapping technician feedback.
 /// </summary>
-public class ITaskService
+public interface ITaskService
 {
      #region Methods
 

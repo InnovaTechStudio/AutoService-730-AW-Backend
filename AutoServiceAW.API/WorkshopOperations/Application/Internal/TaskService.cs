@@ -1,6 +1,7 @@
 ﻿using AutoServiceAW.API.Shared.Domain.Repositories;
 using AutoServiceAW.API.WorkshopOperations.Domain.Repositories;
 using AutoServiceAW.API.WorkshopOperations.Domain.Services;
+using Task = AutoServiceAW.API.WorkshopOperations.Domain.Model.Aggregates.Task;
 
 namespace AutoServiceAW.API.WorkshopOperations.Application.Internal;
 
