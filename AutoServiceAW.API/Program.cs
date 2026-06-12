@@ -18,11 +18,11 @@
 // using AutoServiceAW.API.IAM.Domain.Services;
 // using AutoServiceAW.API.IAM.Infrastructure.Persistence.EFC.Repositories;
 
-// Inventory Management - NO SE USARÁ POR AHORA
-// using AutoServiceAW.API.InventoryManagement.Application.Internal;
-// using AutoServiceAW.API.InventoryManagement.Domain.Repositories;
-// using AutoServiceAW.API.InventoryManagement.Domain.Services;
-// using AutoServiceAW.API.InventoryManagement.Infrastructure.Persistence.EFC.Repositories;
+
+using AutoServiceAW.API.InventoryManagement.Application.Internal;
+using AutoServiceAW.API.InventoryManagement.Domain.Repositories;
+using AutoServiceAW.API.InventoryManagement.Domain.Services;
+using AutoServiceAW.API.InventoryManagement.Infrastructure.Persistence.EFC.Repositories;
 
 // Shared - SÍ SE USA porque AppDbContext, UnitOfWork y repositorio base son necesarios para EF Core
 using AutoServiceAW.API.Shared.Domain.Repositories;
@@ -41,11 +41,11 @@ using AutoServiceAW.API.TenantManagement.Domain.Repositories;
 using AutoServiceAW.API.TenantManagement.Domain.Services;
 using AutoServiceAW.API.TenantManagement.Infrastructure.Persistence.EFC.Repositories;
 
-// Workshop Operations - NO SE USARÁ POR AHORA
-// using AutoServiceAW.API.WorkshopOperations.Application.Internal;
-// using AutoServiceAW.API.WorkshopOperations.Domain.Repositories;
-// using AutoServiceAW.API.WorkshopOperations.Domain.Services;
-// using AutoServiceAW.API.WorkshopOperations.Infrastructure.Persistence.EFC.Repositories;
+
+using AutoServiceAW.API.WorkshopOperations.Application.Internal;
+using AutoServiceAW.API.WorkshopOperations.Domain.Repositories;
+using AutoServiceAW.API.WorkshopOperations.Domain.Services;
+using AutoServiceAW.API.WorkshopOperations.Infrastructure.Persistence.EFC.Repositories;
 
 // JWT - NO SE USARÁ POR AHORA
 // using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -105,9 +105,8 @@ builder.Services.AddScoped<IMechanicRepository, MechanicRepository>();
 builder.Services.AddScoped<IMechanicService, MechanicService>();
 
 // Inventory Management Bounded Context Registrations
-// NO SE USARÁ POR AHORA
-// builder.Services.AddScoped<IInventoryItemRepository, InventoryItemRepository>();
-// builder.Services.AddScoped<IInventoryItemService, InventoryItemService>();
+builder.Services.AddScoped<IInventoryItemRepository, InventoryItemRepository>();
+builder.Services.AddScoped<IInventoryItemService, InventoryItemService>();
 
 // Customer Management Bounded Context Registrations
 // NO SE USARÁ POR AHORA
@@ -120,11 +119,10 @@ builder.Services.AddScoped<IMechanicService, MechanicService>();
 // builder.Services.AddScoped<IVehicleService, VehicleService>();
 
 // Workshop Operations Bounded Context Registrations
-// NO SE USARÁ POR AHORA
-// builder.Services.AddScoped<IWorkOrderRepository, WorkOrderRepository>();
-// builder.Services.AddScoped<IWorkOrderService, WorkOrderService>();
-// builder.Services.AddScoped<ITaskRepository, TaskRepository>();
-// builder.Services.AddScoped<ITaskService, TaskService>();
+builder.Services.AddScoped<IWorkOrderRepository, WorkOrderRepository>();
+builder.Services.AddScoped<IWorkOrderService, WorkOrderService>();
+builder.Services.AddScoped<ITaskRepository, TaskRepository>();
+builder.Services.AddScoped<ITaskService, TaskService>();
 
 // Identity and Access Management (IAM) Bounded Context Registrations
 // NO SE USARÁ POR AHORA

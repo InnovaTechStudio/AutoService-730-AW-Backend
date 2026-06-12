@@ -4,10 +4,10 @@ using AutoServiceAW.API.WorkshopOperations.Domain.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
+using Task = AutoServiceAW.API.WorkshopOperations.Domain.Model.Aggregates.Task;
 namespace AutoServiceAW.API.WorkshopOperations.Interfaces.REST;
 
 
-using Task = AutoServiceAW.API.WorkshopOperations.Domain.Model.Aggregates.Task;
 
 /// <summary>
 /// Data Transfer Object (DTO) container used to instantiate and register an execution task.
@@ -48,7 +48,7 @@ public record PatchTaskResource(string? Status, string? TechnicalDiagnosis, stri
 /// </summary>
 [ApiController]
 [Route("api/v1/[controller]")]
-[Authorize]
+//[Authorize]
 public class TasksController(ITaskService taskService, IWorkOrderService workOrderService, IInventoryItemService inventoryItemService) : ControllerBase
 {
      #region Methods

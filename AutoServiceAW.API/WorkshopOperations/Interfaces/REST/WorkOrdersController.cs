@@ -34,7 +34,7 @@ public record UpdateWorkOrderResource(string Description, string EstimatedDate, 
 /// </summary>
 [ApiController]
 [Route("api/v1/[controller]")]
-[Authorize]
+//[Authorize]
 public class WorkOrdersController(IWorkOrderService workOrderService) : ControllerBase
 {
       #region Methods
