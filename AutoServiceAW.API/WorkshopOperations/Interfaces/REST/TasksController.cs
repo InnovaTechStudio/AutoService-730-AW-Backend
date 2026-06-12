@@ -18,9 +18,9 @@ using Task = AutoServiceAW.API.WorkshopOperations.Domain.Model.Aggregates.Task;
 /// <param name="Priority">The urgency triage rating index (e.g., Low, Medium, High).</param>
 /// <param name="EstimatedTime">The total expected duration footprint value measured in minutes.</param>
 /// <param name="LaborPrice">The specialized fee cost assigned to the manual technician workforce.</param>
-public record CreateTaskPartResource(int InventoryItemId, int Quantity );
 public record CreateTaskResource(int WorkOrderId, int? MechanicId, string Description, string Priority, int EstimatedTime, decimal LaborPrice, List<CreateTaskPartResource> Parts);
 
+public record CreateTaskPartResource(int InventoryItemId, int Quantity );
 /// <summary>
 /// Data Transfer Object (DTO) representation carrying full structural parameters state updates for an active task row.
 /// </summary>
