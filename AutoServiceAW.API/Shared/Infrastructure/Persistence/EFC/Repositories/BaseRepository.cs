@@ -4,8 +4,16 @@ using Microsoft.EntityFrameworkCore;
 
 namespace AutoServiceAW.API.Shared.Infrastructure.Persistence.EFC.Repositories;
 
-public class BaseRepository<TEntity>(AppDbContext context) : IBaseRepository<TEntity> where TEntity : class
+public abstract class BaseRepository<TEntity>(AppDbContext context) : IBaseRepository<TEntity> where TEntity : class
 {
+    #region Properties
+
+    /// <summary>
+    /// Gets the underlying Entity Framework database context instance.
+    /// </summary>
+    protected readonly AppDbContext Context = context;
+
+    #endregion
     public async Task<IEnumerable<TEntity>> ListAsync()
     {
         return await context.Set<TEntity>().ToListAsync();

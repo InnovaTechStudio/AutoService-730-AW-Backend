@@ -20,7 +20,7 @@ public record CreateInventoryItemResource(string Name, string Category, string B
 /// </summary>
 [ApiController]
 [Route("api/v1/[controller]")]
-[Authorize]
+//[Authorize]
 public class InventoryItemsController(IInventoryItemService inventoryItemService) : ControllerBase
 {
      #region Methods
