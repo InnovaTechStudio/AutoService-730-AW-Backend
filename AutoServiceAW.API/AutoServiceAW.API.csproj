@@ -25,4 +25,11 @@
         <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="8.18.0" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="InventoryManagement\Domain\Repositories\" />
+      <Folder Include="InventoryManagement\Domain\Services\" />
+      <Folder Include="InventoryManagement\Infrastructure\" />
+      <Folder Include="InventoryManagement\Interfaces\" />
+    </ItemGroup>
+
 </Project>

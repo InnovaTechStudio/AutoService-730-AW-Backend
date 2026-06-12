@@ -1,5 +1,5 @@
 {
-  "version": 4,
+  "version": 3,
   "targets": {
     "net10.0": {
       "BCrypt.Net-Next/4.2.0": {
@@ -4277,29 +4277,35 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\juans\\.nuget\\packages\\": {}
+    "C:\\Users\\motoc\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\juans\\OneDrive\\Documentos\\UNIVERSIDAD\\APLICACIONES WEB\\RIDER\\BACKEND-AUTOSERVICE\\BACKENDAS\\AutoService-730-AW-Backend\\AutoServiceAW.API\\AutoServiceAW.API.csproj",
+      "projectUniqueName": "C:\\Users\\motoc\\RiderProjects\\AutoService-730-AW-Backend\\AutoServiceAW.API\\AutoServiceAW.API.csproj",
       "projectName": "AutoServiceAW.API",
-      "projectPath": "C:\\Users\\juans\\OneDrive\\Documentos\\UNIVERSIDAD\\APLICACIONES WEB\\RIDER\\BACKEND-AUTOSERVICE\\BACKENDAS\\AutoService-730-AW-Backend\\AutoServiceAW.API\\AutoServiceAW.API.csproj",
-      "packagesPath": "C:\\Users\\juans\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\juans\\OneDrive\\Documentos\\UNIVERSIDAD\\APLICACIONES WEB\\RIDER\\BACKEND-AUTOSERVICE\\BACKENDAS\\AutoService-730-AW-Backend\\AutoServiceAW.API\\obj\\",
+      "projectPath": "C:\\Users\\motoc\\RiderProjects\\AutoService-730-AW-Backend\\AutoServiceAW.API\\AutoServiceAW.API.csproj",
+      "packagesPath": "C:\\Users\\motoc\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\motoc\\RiderProjects\\AutoService-730-AW-Backend\\AutoServiceAW.API\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
       "configFilePaths": [
-        "C:\\Users\\juans\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\motoc\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "net10.0"
       ],
       "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "net10.0": {
-          "framework": "net10.0",
           "targetAlias": "net10.0",
           "projectReferences": {}
         }
@@ -4318,7 +4324,6 @@
     },
     "frameworks": {
       "net10.0": {
-        "framework": "net10.0",
         "targetAlias": "net10.0",
         "dependencies": {
           "BCrypt.Net-Next": {
@@ -4383,7 +4388,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.300/PortableRuntimeIdentifierGraph.json",
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.301/PortableRuntimeIdentifierGraph.json",
         "packagesToPrune": {
           "Microsoft.AspNetCore": "(,10.0.32767]",
           "Microsoft.AspNetCore.Antiforgery": "(,10.0.32767]",
