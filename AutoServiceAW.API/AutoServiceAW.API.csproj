@@ -26,7 +26,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="InventoryManagement\Domain\Services\" />
       <Folder Include="InventoryManagement\Infrastructure\" />
       <Folder Include="InventoryManagement\Interfaces\" />
     </ItemGroup>

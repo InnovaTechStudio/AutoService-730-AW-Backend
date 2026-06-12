@@ -1,5 +1,8 @@
 ﻿namespace AutoServiceAW.API.InventoryManagement.Domain.Model.Aggregates;
 
+/// <summary>
+/// Represents an Inventory Item aggregate root within the Inventory Management domain.
+/// </summary>
 public class InventoryItem
 {
       #region Properties
