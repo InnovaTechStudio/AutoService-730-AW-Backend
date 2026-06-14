@@ -1,14 +1,11 @@
-﻿using System.Text.Json.Serialization;
-
 namespace AutoServiceAW.API.WorkshopOperations.Domain.Model.Aggregates;
-
 
 /// <summary>
 /// Represents a TaskPart entity representing a specific spare part resource allocated to a diagnostic task.
 /// </summary>
 public class TaskPart
 {
-      #region Properties
+    #region Properties
 
     /// <summary>
     /// Gets the unique structural identifier for the task part row asset entry.
@@ -20,7 +17,6 @@ public class TaskPart
     /// </summary>
     public int TaskId { get; private set; }
 
-    [JsonIgnore] public Task Task { get; private set; }
     /// <summary>
     /// Gets the unique identifier matching the target global warehouse inventory asset registry item tracking key.
     /// </summary>

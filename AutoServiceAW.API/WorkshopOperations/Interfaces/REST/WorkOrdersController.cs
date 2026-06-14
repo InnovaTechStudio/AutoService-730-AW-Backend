@@ -1,4 +1,4 @@
-﻿using AutoServiceAW.API.WorkshopOperations.Domain.Model.Aggregates;
+using AutoServiceAW.API.WorkshopOperations.Domain.Model.Aggregates;
 using AutoServiceAW.API.WorkshopOperations.Domain.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -34,10 +34,10 @@ public record UpdateWorkOrderResource(string Description, string EstimatedDate, 
 /// </summary>
 [ApiController]
 [Route("api/v1/[controller]")]
-//[Authorize]
+[Authorize]
 public class WorkOrdersController(IWorkOrderService workOrderService) : ControllerBase
 {
-      #region Methods
+    #region Methods
 
     /// <summary>
     /// Creates a new maintenance folder file sequence under the active authenticated tenant corporate context identifier.

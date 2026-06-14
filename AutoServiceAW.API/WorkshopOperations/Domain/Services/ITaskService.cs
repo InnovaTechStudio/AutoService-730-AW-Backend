@@ -1,4 +1,4 @@
-﻿using Task = AutoServiceAW.API.WorkshopOperations.Domain.Model.Aggregates.Task;
+using Task = AutoServiceAW.API.WorkshopOperations.Domain.Model.Aggregates.Task;
 
 namespace AutoServiceAW.API.WorkshopOperations.Domain.Services;
 
@@ -7,7 +7,7 @@ namespace AutoServiceAW.API.WorkshopOperations.Domain.Services;
 /// </summary>
 public interface ITaskService
 {
-     #region Methods
+    #region Methods
 
     /// <summary>
     /// Coordinates the persistence mapping of a newly requested operational workshop task.

@@ -1,9 +1,10 @@
-﻿using AutoServiceAW.API.InventoryManagement.Domain.Model.Aggregates;
+using AutoServiceAW.API.InventoryManagement.Domain.Model.Aggregates;
 using AutoServiceAW.API.InventoryManagement.Domain.Services;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 
 namespace AutoServiceAW.API.InventoryManagement.Interfaces.REST;
+
 /// <summary>
 /// Data Transfer Object (DTO) for creating or updating an inventory item resource.
 /// </summary>
@@ -13,17 +14,16 @@ namespace AutoServiceAW.API.InventoryManagement.Interfaces.REST;
 /// <param name="UnitPrice">The standard commercial price per unit.</param>
 /// <param name="Stock">The physical quantity available in stock.</param>
 /// <param name="MinStock">The minimum required safety stock limit.</param>
-public record CreateInventoryItemResource(string Name, string Category, string Brand, decimal UnitPrice, int Stock, int MinStock);
-
+public record CreateInventoryItemResource(string Name, string Category, string Brand, decimal UnitPrice, int Stock, int MinStock, string? Image);
 /// <summary>
 /// Exposes RESTful endpoints for managing warehouse inventory items.
 /// </summary>
 [ApiController]
 [Route("api/v1/[controller]")]
-//[Authorize]
+[Authorize]
 public class InventoryItemsController(IInventoryItemService inventoryItemService) : ControllerBase
 {
-     #region Methods
+    #region Methods
 
     /// <summary>
     /// Registers a new inventory item into the warehouse management context.
@@ -33,7 +33,7 @@ public class InventoryItemsController(IInventoryItemService inventoryItemService
     [HttpPost]
     public async Task<IActionResult> CreateInventoryItem([FromBody] CreateInventoryItemResource resource)
     {
-        var item = new InventoryItem(resource.Name, resource.Category, resource.Brand, resource.UnitPrice, resource.Stock, resource.MinStock);
+        var item = new InventoryItem(resource.Name, resource.Category, resource.Brand, resource.UnitPrice, resource.Stock, resource.MinStock, resource.Image ?? string.Empty);
         var result = await inventoryItemService.CreateAsync(item);
         return StatusCode(201, result);
     }
@@ -70,7 +70,7 @@ public class InventoryItemsController(IInventoryItemService inventoryItemService
     [HttpPut("{id}")]
     public async Task<IActionResult> UpdateInventoryItem(int id, [FromBody] CreateInventoryItemResource resource)
     {
-        var item = new InventoryItem(resource.Name, resource.Category, resource.Brand, resource.UnitPrice, resource.Stock, resource.MinStock);
+        var item = new InventoryItem(resource.Name, resource.Category, resource.Brand, resource.UnitPrice, resource.Stock, resource.MinStock, resource.Image ?? string.Empty);
         var result = await inventoryItemService.UpdateAsync(id, item);
         return result == null ? NotFound() : Ok(result);
     }
@@ -88,5 +88,4 @@ public class InventoryItemsController(IInventoryItemService inventoryItemService
     }
 
     #endregion
-    
 }

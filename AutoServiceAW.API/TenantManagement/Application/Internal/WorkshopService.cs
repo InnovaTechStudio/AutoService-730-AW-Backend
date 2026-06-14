@@ -1,58 +1,28 @@
-﻿using AutoServiceAW.API.Shared.Domain.Repositories;
+using AutoServiceAW.API.Shared.Domain.Repositories;
 using AutoServiceAW.API.TenantManagement.Domain.Model.Aggregates;
 using AutoServiceAW.API.TenantManagement.Domain.Repositories;
 using AutoServiceAW.API.TenantManagement.Domain.Services;
 
 namespace AutoServiceAW.API.TenantManagement.Application.Internal;
 
-public class WorkshopService(
-    IWorkshopRepository workshopRepository,
-    IUnitOfWork unitOfWork) : IWorkshopService
+/// <summary>
+/// Provides internal application services for managing tenant workshop structures and initialization.
+/// </summary>
+public class WorkshopService(IWorkshopRepository workshopRepository, IUnitOfWork unitOfWork) : IWorkshopService
 {
-    public async Task<IEnumerable<Workshop>> ListAsync()
-    {
-        return await workshopRepository.ListAsync();
-    }
+    #region Methods
 
-    public async Task<Workshop?> FindByIdAsync(int id)
-    {
-        return await workshopRepository.FindByIdAsync(id);
-    }
-
-    public async Task<Workshop> CreateAsync(Workshop workshop)
+    /// <summary>
+    /// Creates a new tenant workshop structure inside the system domain asynchronously.
+    /// </summary>
+    /// <param name="workshop">The workshop aggregate root metadata blueprint instance.</param>
+    /// <returns>A task that represents the asynchronous operation. The task result contains the created <see cref="Workshop"/> instance.</returns>
+    public async Task<Workshop?> CreateAsync(Workshop workshop)
     {
         await workshopRepository.AddAsync(workshop);
         await unitOfWork.CompleteAsync();
-
         return workshop;
     }
 
-    public async Task<Workshop?> UpdateAsync(int id, Workshop workshop)
-    {
-        var existingWorkshop = await workshopRepository.FindByIdAsync(id);
-
-        if (existingWorkshop is null)
-            return null;
-
-        existingWorkshop.Name = workshop.Name;
-        existingWorkshop.TenantId = workshop.TenantId;
-
-        workshopRepository.Update(existingWorkshop);
-        await unitOfWork.CompleteAsync();
-
-        return existingWorkshop;
-    }
-
-    public async Task<bool> DeleteAsync(int id)
-    {
-        var existingWorkshop = await workshopRepository.FindByIdAsync(id);
-
-        if (existingWorkshop is null)
-            return false;
-
-        workshopRepository.Remove(existingWorkshop);
-        await unitOfWork.CompleteAsync();
-
-        return true;
-    }
+    #endregion
 }

@@ -18,14 +18,14 @@ public class User
     /// Gets the unique email address of the user.
     /// </summary>
     public string Email { get; private set; }
-
+    
     /// <summary>
     /// Gets the securely hashed password of the user.
     /// This property is excluded from JSON serialization.
     /// </summary>
     [JsonIgnore]
     public string PasswordHash { get; private set; }
-
+    
     /// <summary>
     /// Gets the authorization role assigned to the user (e.g., Admin, Technician).
     /// </summary>

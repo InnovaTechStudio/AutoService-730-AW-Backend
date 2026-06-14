@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 namespace AutoServiceAW.API.IAM.Infrastructure.Persistence.EFC.Repositories;
 
 /// <summary>
-/// Infrastructure implementation of the <see cref="IUserRepository"/> contract
+/// Infrastructure implementation of the <see cref="IUserRepository"/> contract 
 /// using Entity Framework Core and inheriting generic operations from <see cref="BaseRepository{User}"/>.
 /// </summary>
 public class UserRepository(AppDbContext context) : BaseRepository<User>(context), IUserRepository

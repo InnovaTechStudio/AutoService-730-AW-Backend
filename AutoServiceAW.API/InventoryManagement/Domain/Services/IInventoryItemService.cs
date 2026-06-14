@@ -1,4 +1,4 @@
-﻿using AutoServiceAW.API.InventoryManagement.Domain.Model.Aggregates;
+using AutoServiceAW.API.InventoryManagement.Domain.Model.Aggregates;
 
 namespace AutoServiceAW.API.InventoryManagement.Domain.Services;
 
@@ -7,7 +7,7 @@ namespace AutoServiceAW.API.InventoryManagement.Domain.Services;
 /// </summary>
 public interface IInventoryItemService
 {
-     #region Methods
+    #region Methods
 
     /// <summary>
     /// Coordinates the creation of a new inventory item.
@@ -43,8 +43,6 @@ public interface IInventoryItemService
     /// <param name="id">The unique identifier of the inventory item to delete.</param>
     /// <returns>A task that represents the asynchronous operation.</returns>
     Task DeleteAsync(int id);
-    
-    Task<bool> ConsumeStockAsync(int inventoryItemId, int quantity);
 
     #endregion
 }

@@ -1,4 +1,4 @@
-﻿namespace AutoServiceAW.API.WorkshopOperations.Domain.Model.Aggregates;
+namespace AutoServiceAW.API.WorkshopOperations.Domain.Model.Aggregates;
 
 /// <summary>
 /// Represents a WorkOrder aggregate root managing vehicle processing folders and checklist execution progress within a tenant scope.
@@ -101,8 +101,7 @@ public class WorkOrder
     /// <param name="description">The initial diagnosis service descriptive requirements script text.</param>
     /// <param name="estimatedDate">The expected commitment target date parameters text timeline.</param>
     /// <param name="price">The base calculation global pricing estimation entry framework metric.</param>
-    public WorkOrder(string workshopId, int vehicleId, int customerId, int mechanicId, string description,
-        string estimatedDate, decimal price)
+    public WorkOrder(string workshopId, int vehicleId, int customerId, int mechanicId, string description, string estimatedDate, decimal price)
     {
         WorkshopId = workshopId;
         VehicleId = vehicleId;
@@ -111,7 +110,7 @@ public class WorkOrder
         Description = description;
         EstimatedDate = estimatedDate;
         Price = price;
-        Status = "PENDING";
+        Status = "PENDING"; 
         TrackingCode = $"WO-{Guid.NewGuid().ToString().Substring(0, 6).ToUpper()}";
         StartDate = DateTime.UtcNow.ToString("yyyy-MM-dd");
     }
@@ -155,8 +154,7 @@ public class WorkOrder
     /// <param name="diagnosisValidated">The current evaluation flag state tracing master analytical report sign-offs.</param>
     /// <param name="cleaningDone">The current evaluation flag state marking car detailing completion steps.</param>
     /// <param name="finalTestDone">The current evaluation flag state marking road test execution checkoffs.</param>
-    public void UpdateChecklist(bool tasksCompleted, bool sparePartsChecked, bool diagnosisValidated, bool cleaningDone,
-        bool finalTestDone)
+    public void UpdateChecklist(bool tasksCompleted, bool sparePartsChecked, bool diagnosisValidated, bool cleaningDone, bool finalTestDone)
     {
         TasksCompleted = tasksCompleted;
         SparePartsChecked = sparePartsChecked;

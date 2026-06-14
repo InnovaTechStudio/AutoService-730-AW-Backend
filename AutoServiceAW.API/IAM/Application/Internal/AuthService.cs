@@ -10,7 +10,7 @@ using Microsoft.IdentityModel.Tokens;
 namespace AutoServiceAW.API.IAM.Application.Internal;
 
 /// <summary>
-/// Provides application services for Identity and Access Management (IAM),
+/// Provides application services for Identity and Access Management (IAM), 
 /// handling user authentication, registration, and token generation.
 /// </summary>
 public class AuthService(IUserRepository userRepository, IUnitOfWork unitOfWork, IConfiguration configuration) : IAuthService
@@ -45,13 +45,13 @@ public class AuthService(IUserRepository userRepository, IUnitOfWork unitOfWork,
     /// <param name="email">The registered email address of the user.</param>
     /// <param name="password">The plain-text password to verify.</param>
     /// <returns>
-    /// A task that represents the asynchronous operation. The task result contains a tuple with the
+    /// A task that represents the asynchronous operation. The task result contains a tuple with the 
     /// authenticated <see cref="User"/> and their generated JWT token string, or <see langword="null"/> if credentials are invalid.
     /// </returns>
     public async Task<(User User, string Token)?> SignInAsync(string email, string password)
     {
         var user = await userRepository.FindByEmailAsync(email);
-
+        
         if (user == null || !BCrypt.Net.BCrypt.Verify(password, user.PasswordHash))
             return null;
 

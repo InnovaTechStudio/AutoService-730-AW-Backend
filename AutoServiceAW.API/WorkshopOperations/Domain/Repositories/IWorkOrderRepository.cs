@@ -1,9 +1,13 @@
-﻿using AutoServiceAW.API.Shared.Domain.Repositories;
+using AutoServiceAW.API.Shared.Domain.Repositories;
 using AutoServiceAW.API.WorkshopOperations.Domain.Model.Aggregates;
 
 namespace AutoServiceAW.API.WorkshopOperations.Domain.Repositories;
 
-public interface IWorkOrderRepository :  IBaseRepository<WorkOrder>
+/// <summary>
+/// Defines the repository contract for managing <see cref="WorkOrder"/> entities.
+/// Inherits basic CRUD operations from <see cref="IBaseRepository{WorkOrder}"/>.
+/// </summary>
+public interface IWorkOrderRepository : IBaseRepository<WorkOrder>
 {
     #region Methods
 

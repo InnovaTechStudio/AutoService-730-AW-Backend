@@ -25,7 +25,7 @@ public interface IAuthService
     /// <param name="email">The user email address.</param>
     /// <param name="password">The plain text security password.</param>
     /// <returns>
-    /// A task that represents the asynchronous operation. The task result contains a tuple containing the valid <see cref="User"/>
+    /// A task that represents the asynchronous operation. The task result contains a tuple containing the valid <see cref="User"/> 
     /// and their bearer access Token string, or <see langword="null"/> if authentication fails.
     /// </returns>
     Task<(User User, string Token)?> SignInAsync(string email, string password);
