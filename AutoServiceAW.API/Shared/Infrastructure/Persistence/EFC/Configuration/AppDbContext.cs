@@ -1,37 +1,88 @@
-﻿using AutoServiceAW.API.InventoryManagement.Domain.Model.Aggregates;
+using AutoServiceAW.API.InventoryManagement.Domain.Model.Aggregates;
+using AutoServiceAW.API.Shared.Infrastructure.Persistence.EFC.Configuration.Extensions;
 using AutoServiceAW.API.StaffCoordination.Domain.Model.Aggregates;
-
+using AutoServiceAW.API.CustomerManagement.Domain.Model.Aggregates;
+using AutoServiceAW.API.FleetManagement.Domain.Model.Aggregates;
 using AutoServiceAW.API.WorkshopOperations.Domain.Model.Aggregates;
 using Microsoft.EntityFrameworkCore;
 using Task = AutoServiceAW.API.WorkshopOperations.Domain.Model.Aggregates.Task;
-
+using AutoServiceAW.API.IAM.Domain.Model.Aggregates;
 using AutoServiceAW.API.TenantManagement.Domain.Model.Aggregates;
-
 
 namespace AutoServiceAW.API.Shared.Infrastructure.Persistence.EFC.Configuration;
 
+/// <summary>
+/// Provides the main Entity Framework Core data access context, coordinating entities mapping and constraints.
+/// </summary>
 public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(options)
 {
+    #region Properties
+
+    /// <summary>
+    /// Gets or sets the database persistence tracking mapping context for mechanics.
+    /// </summary>
     public DbSet<Mechanic> Mechanics { get; set; }
-    public DbSet<Workshop> Workshops { get; set; }
+
+    /// <summary>
+    /// Gets or sets the database persistence tracking mapping context for inventory items.
+    /// </summary>
     public DbSet<InventoryItem> InventoryItems { get; set; }
-    public DbSet<Task> Tasks { get; set; }
-    public DbSet<TaskPart>  TaskParts { get; set; }
+
+    /// <summary>
+    /// Gets or sets the database persistence tracking mapping context for customers.
+    /// </summary>
+    public DbSet<Customer> Customers { get; set; }
+
+    /// <summary>
+    /// Gets or sets the database persistence tracking mapping context for vehicles.
+    /// </summary>
+    public DbSet<Vehicle> Vehicles { get; set; }
+
+    /// <summary>
+    /// Gets or sets the database persistence tracking mapping context for workshop work orders.
+    /// </summary>
     public DbSet<WorkOrder> WorkOrders { get; set; }
 
+    /// <summary>
+    /// Gets or sets the database persistence tracking mapping context for assigned diagnostic tasks.
+    /// </summary>
+    public DbSet<Task> Tasks { get; set; }
+
+    /// <summary>
+    /// Gets or sets the database persistence tracking mapping context for matching parts linked to specific tasks.
+    /// </summary>
+    public DbSet<TaskPart> TaskParts { get; set; }
+
+    /// <summary>
+    /// Gets or sets the database persistence tracking mapping context for user platform access identities.
+    /// </summary>
+    public DbSet<User> Users { get; set; }
+
+    /// <summary>
+    /// Gets or sets the database persistence tracking mapping context for tenant workshop structures.
+    /// </summary>
+    public DbSet<Workshop> Workshops { get; set; }
+
+    #endregion
+
+    #region Methods
+
+    /// <summary>
+    /// Configures structural schema mapping constraints, key properties, indices, relationships, and naming configurations.
+    /// </summary>
+    /// <param name="builder">The active context builder instance api wrapper.</param>
     protected override void OnModelCreating(ModelBuilder builder)
     {
         base.OnModelCreating(builder);
 
+        // Mechanic mapping
         builder.Entity<Mechanic>().ToTable("Mechanics");
-        builder.Entity<Mechanic>().HasKey(mechanic => mechanic.Id);
-        builder.Entity<Mechanic>().Property(mechanic => mechanic.Id).IsRequired().ValueGeneratedOnAdd();
-        builder.Entity<Mechanic>().Property(mechanic => mechanic.FullName).IsRequired().HasMaxLength(80);
-        builder.Entity<Mechanic>().Property(mechanic => mechanic.Specialty).IsRequired().HasMaxLength(80);
-        builder.Entity<Mechanic>().Property(mechanic => mechanic.MaxCapacity).IsRequired();
-        builder.Entity<Mechanic>().Property(mechanic => mechanic.Email).IsRequired().HasMaxLength(120);
-        builder.Entity<Mechanic>().Property(mechanic => mechanic.Password).IsRequired().HasMaxLength(120);
-        
+        builder.Entity<Mechanic>().HasKey(m => m.Id);
+        builder.Entity<Mechanic>().Property(m => m.Id).IsRequired().ValueGeneratedOnAdd();
+        builder.Entity<Mechanic>().Property(m => m.FullName).IsRequired().HasMaxLength(100);
+        builder.Entity<Mechanic>().Property(m => m.Specialty).IsRequired().HasMaxLength(50);
+        builder.Entity<Mechanic>().Property(m => m.Email).IsRequired().HasMaxLength(100);
+
         // InventoryItem mapping
         builder.Entity<InventoryItem>().ToTable("InventoryItems");
         builder.Entity<InventoryItem>().HasKey(i => i.Id);
@@ -43,9 +94,38 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
         builder.Entity<InventoryItem>().Property(i => i.UnitPrice).IsRequired().HasColumnType("decimal(10,2)");
         builder.Entity<InventoryItem>().Property(i => i.Stock).IsRequired().HasDefaultValue(0);
         builder.Entity<InventoryItem>().Property(i => i.MinStock).IsRequired().HasDefaultValue(5);
-
+        builder.Entity<InventoryItem>().Property(i => i.Image).HasColumnType("longtext");
         
-         builder.Entity<WorkOrder>().ToTable("WorkOrders");
+        // Customer mapping
+        builder.Entity<Customer>().ToTable("Customers");
+        builder.Entity<Customer>().HasKey(c => c.Id);
+        builder.Entity<Customer>().Property(c => c.Id).IsRequired().ValueGeneratedOnAdd();
+        builder.Entity<Customer>().Property(c => c.WorkshopId).IsRequired().HasMaxLength(50);
+        builder.Entity<Customer>().Property(c => c.FullName).IsRequired().HasMaxLength(150);
+        builder.Entity<Customer>().Property(c => c.Dni).IsRequired().HasMaxLength(20);
+        builder.Entity<Customer>().Property(c => c.Email).HasMaxLength(100);
+        builder.Entity<Customer>().Property(c => c.Phone).HasMaxLength(30);
+        
+        // Vehicle mapping
+        builder.Entity<Vehicle>().ToTable("Vehicles");
+        builder.Entity<Vehicle>().HasKey(v => v.Id);
+        builder.Entity<Vehicle>().Property(v => v.Id).IsRequired().ValueGeneratedOnAdd();
+        builder.Entity<Vehicle>().Property(v => v.Plate).IsRequired().HasMaxLength(20);
+        builder.Entity<Vehicle>().Property(v => v.Brand).HasMaxLength(50);
+        builder.Entity<Vehicle>().Property(v => v.Model).HasMaxLength(50);
+        builder.Entity<Vehicle>().Property(v => v.Year).HasMaxLength(10);
+        builder.Entity<Vehicle>().Property(v => v.Color).HasMaxLength(30);
+        builder.Entity<Vehicle>().Property(v => v.Status).IsRequired().HasMaxLength(30);
+        builder.Entity<Vehicle>().Property(v => v.Image).HasColumnType("longtext");
+        
+        builder.Entity<Vehicle>()
+            .HasOne<Customer>()
+            .WithMany()
+            .HasForeignKey(v => v.CustomerId)
+            .OnDelete(DeleteBehavior.Restrict);
+        
+        // WorkOrder mapping
+        builder.Entity<WorkOrder>().ToTable("WorkOrders");
         builder.Entity<WorkOrder>().HasKey(w => w.Id);
         builder.Entity<WorkOrder>().Property(w => w.Id).IsRequired().ValueGeneratedOnAdd();
         builder.Entity<WorkOrder>().Property(w => w.WorkshopId).IsRequired().HasMaxLength(50);
@@ -67,15 +147,18 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
         builder.Entity<Task>().Property(t => t.Status).IsRequired().HasMaxLength(30);
         builder.Entity<Task>().Property(t => t.Priority).HasMaxLength(20);
         builder.Entity<Task>().Property(t => t.LaborPrice).HasColumnType("decimal(10,2)");
-        builder.Entity<Task>() .Property(t => t.MaterialsCost) .HasColumnType("decimal(10,2)");
-        builder.Entity<Task>().Ignore(t => t.TotalCost);
         builder.Entity<Task>().Property(t => t.TechnicalDiagnosis).HasMaxLength(1000);
         builder.Entity<Task>().Property(t => t.CustomerExplanation).HasMaxLength(1000);
         builder.Entity<Task>().Property(t => t.InternalObservation).HasMaxLength(500);
         builder.Entity<Task>().Property(t => t.EvidenceRegistered).HasMaxLength(500);
         builder.Entity<Task>().Property(t => t.AdminReviewStatus).HasMaxLength(50);
         
-        builder.Entity<Task>().HasOne<WorkOrder>() .WithMany().HasForeignKey(t => t.WorkOrderId).OnDelete(DeleteBehavior.Cascade);
+        builder.Entity<Task>()
+            .HasOne<WorkOrder>()
+            .WithMany()
+            .HasForeignKey(t => t.WorkOrderId)
+            .OnDelete(DeleteBehavior.Cascade);
+        
         // TaskPart mapping
         builder.Entity<TaskPart>().ToTable("TaskParts");
         builder.Entity<TaskPart>().HasKey(tp => tp.Id);
@@ -84,15 +167,21 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
         builder.Entity<TaskPart>().Property(tp => tp.UnitPrice).HasColumnType("decimal(10,2)");
         
         builder.Entity<TaskPart>()
-            .HasOne(tp => tp.Task)
-            .WithMany(t => t.Parts)
+            .HasOne<Task>()
+            .WithMany()
             .HasForeignKey(tp => tp.TaskId)
             .OnDelete(DeleteBehavior.Cascade);
         
+        // Workshop mapping
         builder.Entity<Workshop>().ToTable("Workshops");
-        builder.Entity<Workshop>().HasKey(workshop => workshop.Id);
-        builder.Entity<Workshop>().Property(workshop => workshop.Id).IsRequired().ValueGeneratedOnAdd();
-        builder.Entity<Workshop>().Property(workshop => workshop.Name).IsRequired().HasMaxLength(100);
-        builder.Entity<Workshop>().Property(workshop => workshop.TenantId).IsRequired().HasMaxLength(80);
+        builder.Entity<Workshop>().HasKey(w => w.Id);
+        builder.Entity<Workshop>().Property(w => w.Id).IsRequired().ValueGeneratedOnAdd();
+        builder.Entity<Workshop>().Property(w => w.Name).IsRequired().HasMaxLength(150);
+        builder.Entity<Workshop>().Property(w => w.TenantId).IsRequired().HasMaxLength(50);
+        
+        // Auto convert naming conventions globally
+        builder.UseSnakeCaseNamingConvention();
     }
+
+    #endregion
 }

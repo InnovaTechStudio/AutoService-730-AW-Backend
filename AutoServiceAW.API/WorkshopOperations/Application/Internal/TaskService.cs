@@ -1,10 +1,13 @@
-﻿using AutoServiceAW.API.Shared.Domain.Repositories;
+using AutoServiceAW.API.Shared.Domain.Repositories;
 using AutoServiceAW.API.WorkshopOperations.Domain.Repositories;
 using AutoServiceAW.API.WorkshopOperations.Domain.Services;
 using Task = AutoServiceAW.API.WorkshopOperations.Domain.Model.Aggregates.Task;
 
 namespace AutoServiceAW.API.WorkshopOperations.Application.Internal;
 
+/// <summary>
+/// Provides internal application services for managing individual diagnostic and repair tasks within workshop operations.
+/// </summary>
 public class TaskService(ITaskRepository taskRepository, IUnitOfWork unitOfWork) : ITaskService
 {
     #region Methods

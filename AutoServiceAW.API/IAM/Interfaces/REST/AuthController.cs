@@ -105,18 +105,20 @@ public class AuthController(
     {
         try
         {
+            // Creamos el taller
             var workshop = new Workshop(resource.WorkshopName);
             var createdWorkshop = await workshopService.CreateAsync(workshop);
 
             if (createdWorkshop == null) return BadRequest(new { message = "Could not create workshop" });
 
+            // Creamos al admin
             var user = await authService.SignUpAsync(resource.Email, resource.Password, "admin", createdWorkshop.TenantId);
 
-            return StatusCode(201, new
-            {
-                message = "Workshop and admin account created successfully",
+            return StatusCode(201, new 
+            { 
+                message = "Workshop and admin account created successfully", 
                 workshopId = createdWorkshop.TenantId,
-                userId = user?.Id
+                userId = user?.Id 
             });
         }
         catch (Exception ex)

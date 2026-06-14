@@ -1,15 +1,16 @@
-﻿using AutoServiceAW.API.InventoryManagement.Domain.Model.Aggregates;
+using AutoServiceAW.API.InventoryManagement.Domain.Model.Aggregates;
 using AutoServiceAW.API.InventoryManagement.Domain.Repositories;
 using AutoServiceAW.API.InventoryManagement.Domain.Services;
 using AutoServiceAW.API.Shared.Domain.Repositories;
 
 namespace AutoServiceAW.API.InventoryManagement.Application.Internal;
+
 /// <summary>
 /// Provides internal application services for managing inventory item operations.
 /// </summary>
 public class InventoryItemService(IInventoryItemRepository inventoryItemRepository, IUnitOfWork unitOfWork) : IInventoryItemService
 {
-     #region Methods
+    #region Methods
 
     /// <summary>
     /// Creates a new inventory item in the system asynchronously.
@@ -50,8 +51,7 @@ public class InventoryItemService(IInventoryItemRepository inventoryItemReposito
         var existingItem = await inventoryItemRepository.FindByIdAsync(id);
         if (existingItem == null) return null;
 
-        existingItem.Update(updatedItem.Name, updatedItem.Category, updatedItem.Brand, updatedItem.UnitPrice, updatedItem.Stock, updatedItem.MinStock);
-        inventoryItemRepository.Update(existingItem);
+        existingItem.Update(updatedItem.Name, updatedItem.Category, updatedItem.Brand, updatedItem.UnitPrice, updatedItem.Stock, updatedItem.MinStock, updatedItem.Image);        inventoryItemRepository.Update(existingItem);
         await unitOfWork.CompleteAsync();
         return existingItem;
     }
@@ -69,27 +69,6 @@ public class InventoryItemService(IInventoryItemRepository inventoryItemReposito
             inventoryItemRepository.Remove(existingItem);
             await unitOfWork.CompleteAsync();
         }
-    }
-
-    
-    public async Task<bool> ConsumeStockAsync(
-        int inventoryItemId,
-        int quantity)
-    {
-        var item =
-            await inventoryItemRepository
-                .FindByIdAsync(inventoryItemId);
-
-        if (item == null)
-            return false;
-
-        item.DecreaseStock(quantity);
-
-        inventoryItemRepository.Update(item);
-
-        await unitOfWork.CompleteAsync();
-
-        return true;
     }
 
     #endregion

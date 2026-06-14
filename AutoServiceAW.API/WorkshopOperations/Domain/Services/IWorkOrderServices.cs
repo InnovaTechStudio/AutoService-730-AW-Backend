@@ -1,4 +1,4 @@
-﻿using AutoServiceAW.API.WorkshopOperations.Domain.Model.Aggregates;
+using AutoServiceAW.API.WorkshopOperations.Domain.Model.Aggregates;
 
 namespace AutoServiceAW.API.WorkshopOperations.Domain.Services;
 

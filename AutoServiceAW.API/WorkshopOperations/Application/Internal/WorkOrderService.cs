@@ -1,4 +1,4 @@
-﻿using AutoServiceAW.API.Shared.Domain.Repositories;
+using AutoServiceAW.API.Shared.Domain.Repositories;
 using AutoServiceAW.API.WorkshopOperations.Domain.Model.Aggregates;
 using AutoServiceAW.API.WorkshopOperations.Domain.Repositories;
 using AutoServiceAW.API.WorkshopOperations.Domain.Services;

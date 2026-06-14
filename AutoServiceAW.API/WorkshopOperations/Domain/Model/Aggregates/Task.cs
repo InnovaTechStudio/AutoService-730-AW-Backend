@@ -1,8 +1,11 @@
-﻿namespace AutoServiceAW.API.WorkshopOperations.Domain.Model.Aggregates;
+namespace AutoServiceAW.API.WorkshopOperations.Domain.Model.Aggregates;
 
+/// <summary>
+/// Represents a Task aggregate root within the Workshop Operations domain context boundary.
+/// </summary>
 public class Task
 {
-     #region Properties
+    #region Properties
 
     /// <summary>
     /// Gets the unique structural identifier for the operational task.
@@ -146,21 +149,6 @@ public class Task
         EvidenceRegistered = evidence ?? string.Empty;
         AdminReviewStatus = reviewStatus ?? string.Empty;
     }
-    public decimal MaterialsCost { get; private set; }
 
-    public decimal TotalCost =>
-        LaborPrice + MaterialsCost;
-    
-    public void UpdateMaterialsCost(decimal materialsCost)
-    {
-        MaterialsCost = materialsCost;
-    }
-    public ICollection<TaskPart> Parts { get; private set; }
-        = new List<TaskPart>();
-    public void AddPart(TaskPart part)
-    {
-        Parts.Add(part);
-    }
-    
     #endregion
 }

@@ -1,11 +1,11 @@
-﻿namespace AutoServiceAW.API.InventoryManagement.Domain.Model.Aggregates;
+namespace AutoServiceAW.API.InventoryManagement.Domain.Model.Aggregates;
 
 /// <summary>
 /// Represents an Inventory Item aggregate root within the Inventory Management domain.
 /// </summary>
 public class InventoryItem
 {
-      #region Properties
+    #region Properties
 
     /// <summary>
     /// Gets the unique identifier for the inventory item.
@@ -46,6 +46,8 @@ public class InventoryItem
     /// Gets the minimum safety threshold level for warehouse inventory alerts.
     /// </summary>
     public int MinStock { get; private set; }
+    
+    public string Image { get; private set; }
 
     #endregion
 
@@ -60,7 +62,7 @@ public class InventoryItem
     /// <param name="unitPrice">The default base unit price asset value.</param>
     /// <param name="stock">The initial volume available.</param>
     /// <param name="minStock">The minimum required backup storage amount.</param>
-    public InventoryItem(string name, string category, string brand, decimal unitPrice, int stock, int minStock)
+    public InventoryItem(string name, string category, string brand, decimal unitPrice, int stock, int minStock, string image)
     {
         Sku = $"SKU-{new Random().Next(1000, 9999)}";
         Name = name;
@@ -69,6 +71,7 @@ public class InventoryItem
         UnitPrice = unitPrice;
         Stock = stock;
         MinStock = minStock;
+        Image = image;
     }
 
     /// <summary>
@@ -81,7 +84,8 @@ public class InventoryItem
         Name = string.Empty;
         Category = string.Empty;
         Brand = string.Empty;
-    }
+        Image = string.Empty;
+}
 
     #endregion
 
@@ -96,7 +100,7 @@ public class InventoryItem
     /// <param name="unitPrice">The updated unit cost scale valuation.</param>
     /// <param name="stock">The current physical stock balance level adjustments.</param>
     /// <param name="minStock">The updated structural low warning security bounds.</param>
-    public void Update(string name, string category, string brand, decimal unitPrice, int stock, int minStock)
+    public void Update(string name, string category, string brand, decimal unitPrice, int stock, int minStock, string image)
     {
         Name = name;
         Category = category;
@@ -104,39 +108,8 @@ public class InventoryItem
         UnitPrice = unitPrice;
         Stock = stock;
         MinStock = minStock;
-    }
-    
-    public void DecreaseStock(int quantity)
-    {
-        if(quantity <= 0)
-            throw new ArgumentException(
-                "Quantity must be greater than zero"
-            );
-
-        if(Stock < quantity)
-            throw new InvalidOperationException(
-                "Insufficient stock"
-            );
-
-        Stock -= quantity;
+        Image = image;
     }
 
-    public void AddStock(int quantity)
-    {
-        if (quantity <= 0)
-            throw new InvalidOperationException("La cantidad debe ser mayor que cero.");
-
-        Stock += quantity;
-    }
-    public void ConsumeStock(int quantity)
-    {
-        if (quantity <= 0)
-            return;
-
-        if (Stock < quantity)
-            throw new InvalidOperationException("Insufficient stock");
-
-        Stock -= quantity;
-    }
     #endregion
 }

@@ -1,4 +1,4 @@
-﻿using AutoServiceAW.API.Shared.Infrastructure.Persistence.EFC.Configuration;
+using AutoServiceAW.API.Shared.Infrastructure.Persistence.EFC.Configuration;
 using AutoServiceAW.API.Shared.Infrastructure.Persistence.EFC.Repositories;
 using AutoServiceAW.API.WorkshopOperations.Domain.Model.Aggregates;
 using AutoServiceAW.API.WorkshopOperations.Domain.Repositories;
@@ -6,6 +6,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace AutoServiceAW.API.WorkshopOperations.Infrastructure.Persistence.EFC.Repositories;
 
+/// <summary>
+/// Infrastructure implementation of the <see cref="IWorkOrderRepository"/> contract
+/// using Entity Framework Core and inheriting generic operations from <see cref="BaseRepository{WorkOrder}"/>.
+/// </summary>
 public class WorkOrderRepository(AppDbContext context) : BaseRepository<WorkOrder>(context), IWorkOrderRepository
 {
     #region Methods
