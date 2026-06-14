@@ -43,7 +43,10 @@ var builder = WebApplication.CreateBuilder(args);
 #region Controller and API Explorer Configuration
 
 // Add framework service controller endpoints to the DI container.
-builder.Services.AddControllers();
+builder.Services.AddControllers().AddJsonOptions(options =>
+{
+    options.JsonSerializerOptions.PropertyNameCaseInsensitive = true;
+});
 
 // Configure minimal API and controller descriptive route explorer mechanisms.
 builder.Services.AddEndpointsApiExplorer();
