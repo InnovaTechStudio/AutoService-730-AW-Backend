@@ -1,3 +1,5 @@
+# AutoService Platform Workshop Management
+
 ## Overview
 
 AutoService-730-AW-Backend is a RESTful API built with ASP.NET Core for managing automotive workshop operations. The platform supports vehicle maintenance workflows, work order execution, mechanic assignment, inventory management, customer administration, authentication, and public service tracking.
