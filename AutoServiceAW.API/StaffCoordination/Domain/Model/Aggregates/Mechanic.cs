@@ -31,6 +31,7 @@ public class Mechanic
     /// Gets the maximum active tracking operational capacity workload score index metric.
     /// </summary>
     public int MaxCapacity { get; private set; }
+    public string Password { get; private set; }
 
     /// <summary>
     /// Gets the unique assigned tenant business workshop context identifier string.
@@ -49,13 +50,14 @@ public class Mechanic
     /// <param name="maxCapacity">The baseline workflow tracking threshold capability score.</param>
     /// <param name="email">The tracking identifier address point.</param>
     /// <param name="workshopId">The assigned business tenant scope context identifier.</param>
-    public Mechanic(string fullName, string specialty, int maxCapacity, string email, string workshopId)
+    public Mechanic(string fullName, string specialty, int maxCapacity, string email, string workshopId, string password)
     {
         FullName = fullName;
         Specialty = specialty;
         MaxCapacity = maxCapacity;
         Email = email;
         WorkshopId = workshopId;
+        Password = password;
     }
 
     /// <summary>
@@ -67,6 +69,7 @@ public class Mechanic
         FullName = string.Empty;
         Specialty = string.Empty;
         Email = string.Empty;
+        Password = string.Empty;
         WorkshopId = string.Empty;
     }
 
@@ -81,12 +84,13 @@ public class Mechanic
     /// <param name="specialty">The updated knowledge specialty designation.</param>
     /// <param name="maxCapacity">The structural capacity index adjustments.</param>
     /// <param name="email">The modified coordination communication email mapping context.</param>
-    public void Update(string fullName, string specialty, int maxCapacity, string email)
+    public void Update(string fullName, string specialty, int maxCapacity, string email, string password)
     {
         FullName = fullName;
         Specialty = specialty;
         MaxCapacity = maxCapacity;
         Email = email;
+        Password = password;
     }
 
     #endregion

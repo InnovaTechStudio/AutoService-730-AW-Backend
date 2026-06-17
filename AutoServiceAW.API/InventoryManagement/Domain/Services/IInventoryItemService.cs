@@ -43,6 +43,7 @@ public interface IInventoryItemService
     /// <param name="id">The unique identifier of the inventory item to delete.</param>
     /// <returns>A task that represents the asynchronous operation.</returns>
     Task DeleteAsync(int id);
-
+    
+    Task<bool> ConsumeStockAsync(int inventoryItemId, int quantity);
     #endregion
 }

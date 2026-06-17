@@ -82,6 +82,8 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
         builder.Entity<Mechanic>().Property(m => m.FullName).IsRequired().HasMaxLength(100);
         builder.Entity<Mechanic>().Property(m => m.Specialty).IsRequired().HasMaxLength(50);
         builder.Entity<Mechanic>().Property(m => m.Email).IsRequired().HasMaxLength(100);
+        builder.Entity<Mechanic>().Property(mechanic => mechanic.MaxCapacity).IsRequired();
+        builder.Entity<Mechanic>().Property(mechanic => mechanic.Password).IsRequired().HasMaxLength(120);
 
         // InventoryItem mapping
         builder.Entity<InventoryItem>().ToTable("InventoryItems");
@@ -147,6 +149,8 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
         builder.Entity<Task>().Property(t => t.Status).IsRequired().HasMaxLength(30);
         builder.Entity<Task>().Property(t => t.Priority).HasMaxLength(20);
         builder.Entity<Task>().Property(t => t.LaborPrice).HasColumnType("decimal(10,2)");
+        builder.Entity<Task>().Property(t => t.MaterialsCost) .HasColumnType("decimal(10,2)");
+        builder.Entity<Task>().Ignore(t => t.TotalCost);
         builder.Entity<Task>().Property(t => t.TechnicalDiagnosis).HasMaxLength(1000);
         builder.Entity<Task>().Property(t => t.CustomerExplanation).HasMaxLength(1000);
         builder.Entity<Task>().Property(t => t.InternalObservation).HasMaxLength(500);
@@ -167,8 +171,8 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
         builder.Entity<TaskPart>().Property(tp => tp.UnitPrice).HasColumnType("decimal(10,2)");
         
         builder.Entity<TaskPart>()
-            .HasOne<Task>()
-            .WithMany()
+            .HasOne(tp => tp.Task)
+            .WithMany(t => t.Parts)
             .HasForeignKey(tp => tp.TaskId)
             .OnDelete(DeleteBehavior.Cascade);
         

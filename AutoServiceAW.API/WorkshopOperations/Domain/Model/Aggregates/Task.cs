@@ -149,6 +149,21 @@ public class Task
         EvidenceRegistered = evidence ?? string.Empty;
         AdminReviewStatus = reviewStatus ?? string.Empty;
     }
+    
+    public decimal MaterialsCost { get; private set; }
 
+    public decimal TotalCost =>
+        LaborPrice + MaterialsCost;
+    
+    public void UpdateMaterialsCost(decimal materialsCost)
+    {
+        MaterialsCost = materialsCost;
+    }
+    public ICollection<TaskPart> Parts { get; private set; }
+        = new List<TaskPart>();
+    public void AddPart(TaskPart part)
+    {
+        Parts.Add(part);
+    }
     #endregion
 }

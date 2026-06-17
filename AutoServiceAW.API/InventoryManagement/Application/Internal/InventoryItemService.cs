@@ -70,6 +70,26 @@ public class InventoryItemService(IInventoryItemRepository inventoryItemReposito
             await unitOfWork.CompleteAsync();
         }
     }
+    
+    public async Task<bool> ConsumeStockAsync(
+        int inventoryItemId,
+        int quantity)
+    {
+        var item =
+            await inventoryItemRepository
+                .FindByIdAsync(inventoryItemId);
 
+        if (item == null)
+            return false;
+
+        item.DecreaseStock(quantity);
+
+        inventoryItemRepository.Update(item);
+
+        await unitOfWork.CompleteAsync();
+
+        return true;
+    }
+    
     #endregion
 }

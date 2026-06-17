@@ -44,7 +44,7 @@ public class MechanicsController(IMechanicService mechanicService) : ControllerB
     public async Task<IActionResult> CreateMechanic([FromBody] CreateMechanicResource resource)
     {
         var workshopId = User.Claims.FirstOrDefault(c => c.Type == "WorkshopId")?.Value ?? "WS-1";
-        var mechanic = new Mechanic(resource.FullName, resource.Specialty, resource.MaxCapacity, resource.Email, workshopId);
+        var mechanic = new Mechanic(resource.FullName, resource.Specialty, resource.MaxCapacity, resource.Email, workshopId, resource.Password);
         
         try 
         {
@@ -93,7 +93,7 @@ public class MechanicsController(IMechanicService mechanicService) : ControllerB
     [HttpPut("{id}")]
     public async Task<IActionResult> UpdateMechanic(int id, [FromBody] UpdateMechanicResource resource)
     {
-        var mechanic = new Mechanic(resource.FullName, resource.Specialty, resource.MaxCapacity, resource.Email, string.Empty);
+        var mechanic = new Mechanic(resource.FullName, resource.Specialty, resource.MaxCapacity, resource.Email, string.Empty, string.Empty);
         var result = await mechanicService.UpdateAsync(id, mechanic);
         return result == null ? NotFound() : Ok(result);
     }

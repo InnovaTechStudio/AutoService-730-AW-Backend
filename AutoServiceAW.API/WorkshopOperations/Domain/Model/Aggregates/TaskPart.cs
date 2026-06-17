@@ -1,3 +1,4 @@
+using System.Text.Json.Serialization;
 namespace AutoServiceAW.API.WorkshopOperations.Domain.Model.Aggregates;
 
 /// <summary>
@@ -20,6 +21,8 @@ public class TaskPart
     /// <summary>
     /// Gets the unique identifier matching the target global warehouse inventory asset registry item tracking key.
     /// </summary>
+    
+    [JsonIgnore] public Task Task { get; private set; }
     public int InventoryItemId { get; private set; }
 
     /// <summary>

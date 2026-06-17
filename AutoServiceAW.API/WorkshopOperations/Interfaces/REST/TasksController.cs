@@ -1,9 +1,13 @@
+using AutoServiceAW.API.InventoryManagement.Domain.Services;
+using AutoServiceAW.API.WorkshopOperations.Domain.Model.Aggregates;
 using AutoServiceAW.API.WorkshopOperations.Domain.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Task = AutoServiceAW.API.WorkshopOperations.Domain.Model.Aggregates.Task;
 
 namespace AutoServiceAW.API.WorkshopOperations.Interfaces.REST;
+
+public record CreateTaskPartResource(int InventoryItemId, int Quantity );
 
 /// <summary>
 /// Data Transfer Object (DTO) container used to instantiate and register an execution task.
@@ -14,8 +18,7 @@ namespace AutoServiceAW.API.WorkshopOperations.Interfaces.REST;
 /// <param name="Priority">The urgency triage rating index (e.g., Low, Medium, High).</param>
 /// <param name="EstimatedTime">The total expected duration footprint value measured in minutes.</param>
 /// <param name="LaborPrice">The specialized fee cost assigned to the manual technician workforce.</param>
-public record CreateTaskResource(int WorkOrderId, int? MechanicId, string Description, string Priority, int EstimatedTime, decimal LaborPrice);
-
+public record CreateTaskResource(int WorkOrderId, int? MechanicId, string Description, string Priority, int EstimatedTime, decimal LaborPrice, List<CreateTaskPartResource> Parts);
 /// <summary>
 /// Data Transfer Object (DTO) representation carrying full structural parameters state updates for an active task row.
 /// </summary>
@@ -44,7 +47,7 @@ public record PatchTaskResource(string? Status, string? TechnicalDiagnosis, stri
 [ApiController]
 [Route("api/v1/[controller]")]
 [Authorize]
-public class TasksController(ITaskService taskService, IWorkOrderService workOrderService) : ControllerBase
+public class TasksController(ITaskService taskService, IWorkOrderService workOrderService, IInventoryItemService inventoryItemService) : ControllerBase
 {
     #region Methods
 
@@ -56,7 +59,50 @@ public class TasksController(ITaskService taskService, IWorkOrderService workOrd
     [HttpPost]
     public async Task<IActionResult> CreateTask([FromBody] CreateTaskResource resource)
     {
+        decimal materialsCost = 0;
+        foreach (var part in resource.Parts)
+        {
+            var inventoryItem =
+                await inventoryItemService.GetByIdAsync(part.InventoryItemId);
+
+            if (inventoryItem == null)
+                continue;
+
+            materialsCost +=
+                inventoryItem.UnitPrice * part.Quantity;
+        }
         var task = new Task(resource.WorkOrderId, resource.MechanicId, resource.Description, "PENDING", resource.Priority, resource.EstimatedTime, resource.LaborPrice);
+        foreach (var part in resource.Parts)
+        {
+            var inventoryItem =
+                await inventoryItemService.GetByIdAsync(part.InventoryItemId);
+
+            if (inventoryItem == null)
+                continue;
+
+            task.AddPart(
+                new TaskPart(
+                    0,
+                    inventoryItem.Id,
+                    inventoryItem.Name,
+                    part.Quantity,
+                    inventoryItem.UnitPrice
+                )
+            );
+            if (inventoryItem.Stock < part.Quantity)
+            {
+                return BadRequest(
+                    $"No hay suficiente stock para {inventoryItem.Name}"
+                );
+            }
+            inventoryItem.ConsumeStock(part.Quantity);
+            //inventoryItem.ConsumeStock(inventoryItem.Stock - part.Quantity);
+
+            await inventoryItemService.UpdateAsync(
+                inventoryItem.Id,
+                inventoryItem
+            );
+        }
         var result = await taskService.CreateAsync(task);
         return StatusCode(201, result);
     }

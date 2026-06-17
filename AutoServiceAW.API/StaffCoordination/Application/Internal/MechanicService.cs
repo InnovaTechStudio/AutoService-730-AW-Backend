@@ -61,7 +61,7 @@ public class MechanicService(IMechanicRepository mechanicRepository, IAuthServic
         var existingMechanic = await mechanicRepository.FindByIdAsync(id);
         if (existingMechanic == null) return null;
 
-        existingMechanic.Update(updatedMechanic.FullName, updatedMechanic.Specialty, updatedMechanic.MaxCapacity, updatedMechanic.Email);
+        existingMechanic.Update(updatedMechanic.FullName, updatedMechanic.Specialty, updatedMechanic.MaxCapacity, updatedMechanic.Email, updatedMechanic.Password);
         mechanicRepository.Update(existingMechanic);
         await unitOfWork.CompleteAsync();
         

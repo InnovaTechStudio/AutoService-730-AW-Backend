@@ -110,6 +110,37 @@ public class InventoryItem
         MinStock = minStock;
         Image = image;
     }
+    public void DecreaseStock(int quantity)
+    {
+        if(quantity <= 0)
+            throw new ArgumentException(
+                "Quantity must be greater than zero"
+            );
+
+        if(Stock < quantity)
+            throw new InvalidOperationException(
+                "Insufficient stock"
+            );
+
+        Stock -= quantity;
+    }
+    public void AddStock(int quantity)
+    {
+        if (quantity <= 0)
+            throw new InvalidOperationException("La cantidad debe ser mayor que cero.");
+
+        Stock += quantity;
+    }
+    public void ConsumeStock(int quantity)
+    {
+        if (quantity <= 0)
+            return;
+
+        if (Stock < quantity)
+            throw new InvalidOperationException("Insufficient stock");
+
+        Stock -= quantity;
+    }
 
     #endregion
 }

@@ -21,7 +21,7 @@ public class TaskRepository(AppDbContext context) : BaseRepository<Task>(context
     /// <returns>A task that represents the asynchronous operation. The task result contains the matching list of tasks.</returns>
     public async Task<IEnumerable<Task>> FindByWorkOrderIdAsync(int workOrderId)
     {
-        return await Context.Tasks.Where(t => t.WorkOrderId == workOrderId).ToListAsync();
+        return await Context.Tasks.Include(t => t.Parts).Where(t => t.WorkOrderId == workOrderId).ToListAsync();
     }
 
     /// <summary>
@@ -31,7 +31,7 @@ public class TaskRepository(AppDbContext context) : BaseRepository<Task>(context
     /// <returns>A task that represents the asynchronous operation. The task result contains the matching list of tasks assigned to the technician.</returns>
     public async Task<IEnumerable<Task>> FindByMechanicIdAsync(int mechanicId)
     {
-        return await Context.Tasks.Where(t => t.MechanicId == mechanicId).ToListAsync();
+        return await Context.Tasks.Include(t => t.Parts).Where(t => t.MechanicId == mechanicId).ToListAsync();
     }
 
     #endregion
