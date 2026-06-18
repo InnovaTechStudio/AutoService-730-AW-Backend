@@ -33,7 +33,7 @@ using AutoServiceAW.API.WorkshopOperations.Infrastructure.Persistence.EFC.Reposi
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
-
+using Microsoft.OpenApi.Models;
 /// <summary>
 /// The main entry point configuration file for the Web Application.
 /// Sets up the dependency injection container, authentication infrastructure middleware, multi-tenant database context connections, and HTTP pipelines.
@@ -50,9 +50,38 @@ builder.Services.AddControllers().AddJsonOptions(options =>
 
 // Configure minimal API and controller descriptive route explorer mechanisms.
 builder.Services.AddEndpointsApiExplorer();
+/*builder.Services.AddSwaggerGen(options =>
+{
+    options.EnableAnnotations();
+});*/
 builder.Services.AddSwaggerGen(options =>
 {
     options.EnableAnnotations();
+
+    options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+    {
+        Description = "JWT Authorization header using the Bearer scheme.",
+        Name = "Authorization",
+        In = ParameterLocation.Header,
+        Type = SecuritySchemeType.Http,
+        Scheme = "bearer",
+        BearerFormat = "JWT"
+    });
+
+    options.AddSecurityRequirement(new OpenApiSecurityRequirement
+    {
+        {
+            new OpenApiSecurityScheme
+            {
+                Reference = new OpenApiReference
+                {
+                    Type = ReferenceType.SecurityScheme,
+                    Id = "Bearer"
+                }
+            },
+            Array.Empty<string>()
+        }
+    });
 });
 
 // Enforce uniform lower-case formatting policies on all REST endpoint routes and URL structures.
