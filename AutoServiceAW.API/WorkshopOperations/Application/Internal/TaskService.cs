@@ -62,7 +62,14 @@ public class TaskService(ITaskRepository taskRepository, IUnitOfWork unitOfWork)
         var existingTask = await taskRepository.FindByIdAsync(id);
         if (existingTask == null) return null;
 
-        existingTask.Update(updatedTask.Description, updatedTask.Status, updatedTask.Priority, updatedTask.EstimatedTime, updatedTask.LaborPrice, updatedTask.MechanicId);
+        existingTask.Update(
+            updatedTask.Description,
+            updatedTask.Status,
+            updatedTask.Priority,
+            updatedTask.EstimatedTime,
+            updatedTask.LaborPrice,
+            updatedTask.MechanicId,
+            updatedTask.LaborCost);
         taskRepository.Update(existingTask);
         await unitOfWork.CompleteAsync();
         return existingTask;

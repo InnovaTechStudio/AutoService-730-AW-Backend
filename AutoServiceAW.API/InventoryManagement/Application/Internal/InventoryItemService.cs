@@ -51,7 +51,20 @@ public class InventoryItemService(IInventoryItemRepository inventoryItemReposito
         var existingItem = await inventoryItemRepository.FindByIdAsync(id);
         if (existingItem == null) return null;
 
-        existingItem.Update(updatedItem.Name, updatedItem.Category, updatedItem.Brand, updatedItem.UnitPrice, updatedItem.Stock, updatedItem.MinStock, updatedItem.Image);        inventoryItemRepository.Update(existingItem);
+        existingItem.Update(
+            updatedItem.Name,
+            updatedItem.Category,
+            updatedItem.Brand,
+            updatedItem.UnitPrice,
+            updatedItem.Stock,
+            updatedItem.MinStock,
+            updatedItem.Image,
+            updatedItem.PurchasePrice,
+            updatedItem.QualityTier,
+            updatedItem.Specification,
+            updatedItem.Presentation,
+            updatedItem.UnitMeasure);
+        inventoryItemRepository.Update(existingItem);
         await unitOfWork.CompleteAsync();
         return existingItem;
     }
