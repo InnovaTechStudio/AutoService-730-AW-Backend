@@ -5,136 +5,108 @@ namespace AutoServiceAW.API.InventoryManagement.Domain.Model.Aggregates;
 /// </summary>
 public class InventoryItem
 {
-    #region Properties
-
-    /// <summary>
-    /// Gets the unique identifier for the inventory item.
-    /// </summary>
     public int Id { get; private set; }
-
-    /// <summary>
-    /// Gets the automatically generated Stock Keeping Unit (SKU) code for the item.
-    /// </summary>
     public string Sku { get; private set; }
-
-    /// <summary>
-    /// Gets the descriptive name of the item.
-    /// </summary>
     public string Name { get; private set; }
-
-    /// <summary>
-    /// Gets the category classification of the inventory item (e.g., Lubricants, Brakes).
-    /// </summary>
     public string Category { get; private set; }
-
-    /// <summary>
-    /// Gets the manufacturer or brand name of the item.
-    /// </summary>
     public string Brand { get; private set; }
-
-    /// <summary>
-    /// Gets the standard commercial price per unit.
-    /// </summary>
+    public string QualityTier { get; private set; }
+    public string Specification { get; private set; }
+    public string Presentation { get; private set; }
+    public string UnitMeasure { get; private set; }
+    public decimal PurchasePrice { get; private set; }
     public decimal UnitPrice { get; private set; }
-
-    /// <summary>
-    /// Gets the current quantity available in storage.
-    /// </summary>
     public int Stock { get; private set; }
-
-    /// <summary>
-    /// Gets the minimum safety threshold level for warehouse inventory alerts.
-    /// </summary>
     public int MinStock { get; private set; }
-    
     public string Image { get; private set; }
 
-    #endregion
+    public decimal SalePrice => UnitPrice;
+    public decimal ProfitPerUnit => UnitPrice - PurchasePrice;
+    public decimal MarginPercentage => UnitPrice == 0
+        ? 0
+        : Math.Round((ProfitPerUnit / UnitPrice) * 100, 2);
+    public decimal InventoryCostValue => PurchasePrice * Stock;
+    public decimal PotentialSalesValue => UnitPrice * Stock;
+    public decimal PotentialProfitValue => ProfitPerUnit * Stock;
 
-    #region Constructors
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="InventoryItem"/> class and generates a unique internal SKU.
-    /// </summary>
-    /// <param name="name">The name of the inventory piece.</param>
-    /// <param name="category">The category tag classification.</param>
-    /// <param name="brand">The item manufacturer commercial brand.</param>
-    /// <param name="unitPrice">The default base unit price asset value.</param>
-    /// <param name="stock">The initial volume available.</param>
-    /// <param name="minStock">The minimum required backup storage amount.</param>
-    public InventoryItem(string name, string category, string brand, decimal unitPrice, int stock, int minStock, string image)
+    public InventoryItem(
+        string name,
+        string category,
+        string brand,
+        decimal unitPrice,
+        int stock,
+        int minStock,
+        string image,
+        decimal purchasePrice = 0,
+        string qualityTier = "STANDARD",
+        string specification = "",
+        string presentation = "",
+        string unitMeasure = "UNIT")
     {
-        Sku = $"SKU-{new Random().Next(1000, 9999)}";
-        Name = name;
-        Category = category;
-        Brand = brand;
+        Validate(name, unitPrice, purchasePrice, stock, minStock);
+
+        Sku = $"SKU-{Guid.NewGuid().ToString("N")[..8].ToUpper()}";
+        Name = name.Trim();
+        Category = string.IsNullOrWhiteSpace(category) ? "SPARE_PART" : category.Trim().ToUpperInvariant();
+        Brand = string.IsNullOrWhiteSpace(brand) ? "GENERIC" : brand.Trim();
+        QualityTier = NormalizeQualityTier(qualityTier);
+        Specification = specification?.Trim() ?? string.Empty;
+        Presentation = presentation?.Trim() ?? string.Empty;
+        UnitMeasure = string.IsNullOrWhiteSpace(unitMeasure) ? "UNIT" : unitMeasure.Trim().ToUpperInvariant();
         UnitPrice = unitPrice;
+        PurchasePrice = ResolvePurchasePrice(purchasePrice, unitPrice);
         Stock = stock;
         MinStock = minStock;
-        Image = image;
+        Image = image ?? string.Empty;
     }
 
-    /// <summary>
-    /// Initializes a new instance of the <see cref="InventoryItem"/> class with default values.
-    /// Required by ORMs such as Entity Framework Core for data mapping.
-    /// </summary>
     protected InventoryItem()
     {
         Sku = string.Empty;
         Name = string.Empty;
         Category = string.Empty;
         Brand = string.Empty;
+        QualityTier = "STANDARD";
+        Specification = string.Empty;
+        Presentation = string.Empty;
+        UnitMeasure = "UNIT";
         Image = string.Empty;
-}
+    }
 
-    #endregion
-
-    #region Methods
-
-    /// <summary>
-    /// Updates the stock details, pricing structure, and metadata tracking configurations.
-    /// </summary>
-    /// <param name="name">The updated descriptive name.</param>
-    /// <param name="category">The updated category target group.</param>
-    /// <param name="brand">The updated manufacturer label.</param>
-    /// <param name="unitPrice">The updated unit cost scale valuation.</param>
-    /// <param name="stock">The current physical stock balance level adjustments.</param>
-    /// <param name="minStock">The updated structural low warning security bounds.</param>
-    public void Update(string name, string category, string brand, decimal unitPrice, int stock, int minStock, string image)
+    public void Update(
+        string name,
+        string category,
+        string brand,
+        decimal unitPrice,
+        int stock,
+        int minStock,
+        string image,
+        decimal purchasePrice = 0,
+        string qualityTier = "STANDARD",
+        string specification = "",
+        string presentation = "",
+        string unitMeasure = "UNIT")
     {
-        Name = name;
-        Category = category;
-        Brand = brand;
+        Validate(name, unitPrice, purchasePrice, stock, minStock);
+
+        Name = name.Trim();
+        Category = string.IsNullOrWhiteSpace(category) ? "SPARE_PART" : category.Trim().ToUpperInvariant();
+        Brand = string.IsNullOrWhiteSpace(brand) ? "GENERIC" : brand.Trim();
+        QualityTier = NormalizeQualityTier(qualityTier);
+        Specification = specification?.Trim() ?? string.Empty;
+        Presentation = presentation?.Trim() ?? string.Empty;
+        UnitMeasure = string.IsNullOrWhiteSpace(unitMeasure) ? "UNIT" : unitMeasure.Trim().ToUpperInvariant();
         UnitPrice = unitPrice;
+        PurchasePrice = ResolvePurchasePrice(purchasePrice, unitPrice);
         Stock = stock;
         MinStock = minStock;
-        Image = image;
+        Image = image ?? string.Empty;
     }
+
     public void DecreaseStock(int quantity)
     {
-        if(quantity <= 0)
-            throw new ArgumentException(
-                "Quantity must be greater than zero"
-            );
-
-        if(Stock < quantity)
-            throw new InvalidOperationException(
-                "Insufficient stock"
-            );
-
-        Stock -= quantity;
-    }
-    public void AddStock(int quantity)
-    {
         if (quantity <= 0)
-            throw new InvalidOperationException("La cantidad debe ser mayor que cero.");
-
-        Stock += quantity;
-    }
-    public void ConsumeStock(int quantity)
-    {
-        if (quantity <= 0)
-            return;
+            throw new ArgumentException("Quantity must be greater than zero");
 
         if (Stock < quantity)
             throw new InvalidOperationException("Insufficient stock");
@@ -142,5 +114,48 @@ public class InventoryItem
         Stock -= quantity;
     }
 
-    #endregion
+    public void AddStock(int quantity)
+    {
+        if (quantity <= 0)
+            throw new InvalidOperationException("Quantity must be greater than zero");
+
+        Stock += quantity;
+    }
+
+    public void ConsumeStock(int quantity)
+    {
+        if (quantity <= 0)
+            return;
+
+        DecreaseStock(quantity);
+    }
+
+    private static decimal ResolvePurchasePrice(decimal purchasePrice, decimal unitPrice)
+    {
+        if (purchasePrice > 0)
+            return purchasePrice;
+
+        return unitPrice > 0 ? Math.Round(unitPrice * 0.70m, 2) : 0;
+    }
+
+    private static string NormalizeQualityTier(string qualityTier)
+    {
+        var normalized = string.IsNullOrWhiteSpace(qualityTier)
+            ? "STANDARD"
+            : qualityTier.Trim().ToUpperInvariant();
+
+        return normalized is "ECONOMY" or "STANDARD" or "PREMIUM"
+            ? normalized
+            : "STANDARD";
+    }
+
+    private static void Validate(string name, decimal unitPrice, decimal purchasePrice, int stock, int minStock)
+    {
+        if (string.IsNullOrWhiteSpace(name))
+            throw new ArgumentException("Name is required");
+        if (unitPrice < 0 || purchasePrice < 0)
+            throw new ArgumentException("Prices cannot be negative");
+        if (stock < 0 || minStock < 0)
+            throw new ArgumentException("Stock values cannot be negative");
+    }
 }
