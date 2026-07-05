@@ -116,17 +116,6 @@ public class TaskService(
     /// Updates structural metadata, time distributions, pricing metrics,
     /// and mechanics allocation states asynchronously.
     /// </summary>
-    /// <param name="id">
-    /// The unique identifier of the operational task record to update.
-    /// </param>
-    /// <param name="updatedTask">
-    /// The domain model entity containing the updated structural state
-    /// criteria blueprints.
-    /// </param>
-    /// <returns>
-    /// A task that represents the asynchronous operation.
-    /// The task result contains the updated task, or null.
-    /// </returns>
     public async Task<WorkshopTask?> UpdateAsync(
         int id,
         WorkshopTask updatedTask
@@ -149,7 +138,17 @@ public class TaskService(
             updatedTask.MechanicId,
             updatedTask.LaborCost
         );
+        existingTask.Parts.Clear();
+        
+        if (updatedTask.Parts != null && updatedTask.Parts.Any())
+        {
+            foreach (var newPart in updatedTask.Parts)
+            {
+                existingTask.Parts.Add(newPart);
+            }
+        }
 
+        // 3. Guardamos los cambios
         taskRepository.Update(existingTask);
         await unitOfWork.CompleteAsync();
 
