@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="8f0b20f9-a116-410c-857a-c58df69da692" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/AutoServiceAW.API/bin/Debug/net10.0/AutoServiceAW.API.dll" beforeDir="false" afterPath="$PROJECT_DIR$/AutoServiceAW.API/bin/Debug/net10.0/AutoServiceAW.API.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AutoServiceAW.API/bin/Debug/net10.0/AutoServiceAW.API.exe" beforeDir="false" afterPath="$PROJECT_DIR$/AutoServiceAW.API/bin/Debug/net10.0/AutoServiceAW.API.exe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AutoServiceAW.API/bin/Debug/net10.0/AutoServiceAW.API.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/AutoServiceAW.API/bin/Debug/net10.0/AutoServiceAW.API.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AutoServiceAW.API/obj/AutoServiceAW.API.csproj.nuget.dgspec.json" beforeDir="false" afterPath="$PROJECT_DIR$/AutoServiceAW.API/obj/AutoServiceAW.API.csproj.nuget.dgspec.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AutoServiceAW.API/obj/Debug/net10.0/AutoServiceAW.API.AssemblyInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AutoServiceAW.API/obj/Debug/net10.0/AutoServiceAW.API.AssemblyInfo.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AutoServiceAW.API/obj/Debug/net10.0/AutoServiceAW.API.AssemblyInfoInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/AutoServiceAW.API/obj/Debug/net10.0/AutoServiceAW.API.AssemblyInfoInputs.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AutoServiceAW.API/obj/Debug/net10.0/AutoServiceAW.API.dll" beforeDir="false" afterPath="$PROJECT_DIR$/AutoServiceAW.API/obj/Debug/net10.0/AutoServiceAW.API.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AutoServiceAW.API/obj/Debug/net10.0/AutoServiceAW.API.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/AutoServiceAW.API/obj/Debug/net10.0/AutoServiceAW.API.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AutoServiceAW.API/obj/Debug/net10.0/AutoServiceAW.API.sourcelink.json" beforeDir="false" afterPath="$PROJECT_DIR$/AutoServiceAW.API/obj/Debug/net10.0/AutoServiceAW.API.sourcelink.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AutoServiceAW.API/obj/Debug/net10.0/apphost.exe" beforeDir="false" afterPath="$PROJECT_DIR$/AutoServiceAW.API/obj/Debug/net10.0/apphost.exe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AutoServiceAW.API/obj/Debug/net10.0/ref/AutoServiceAW.API.dll" beforeDir="false" afterPath="$PROJECT_DIR$/AutoServiceAW.API/obj/Debug/net10.0/ref/AutoServiceAW.API.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AutoServiceAW.API/obj/Debug/net10.0/refint/AutoServiceAW.API.dll" beforeDir="false" afterPath="$PROJECT_DIR$/AutoServiceAW.API/obj/Debug/net10.0/refint/AutoServiceAW.API.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AutoServiceAW.API/obj/Debug/net10.0/rjsmcshtml.dswa.cache.json" beforeDir="false" afterPath="$PROJECT_DIR$/AutoServiceAW.API/obj/Debug/net10.0/rjsmcshtml.dswa.cache.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AutoServiceAW.API/obj/Debug/net10.0/rjsmrazor.dswa.cache.json" beforeDir="false" afterPath="$PROJECT_DIR$/AutoServiceAW.API/obj/Debug/net10.0/rjsmrazor.dswa.cache.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AutoServiceAW.API/obj/project.assets.json" beforeDir="false" afterPath="$PROJECT_DIR$/AutoServiceAW.API/obj/project.assets.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AutoServiceAW.API/obj/project.nuget.cache" beforeDir="false" afterPath="$PROJECT_DIR$/AutoServiceAW.API/obj/project.nuget.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AutoServiceAW.API/obj/rider.project.model.nuget.info" beforeDir="false" afterPath="$PROJECT_DIR$/AutoServiceAW.API/obj/rider.project.model.nuget.info" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AutoServiceAW.API/obj/rider.project.restore.info" beforeDir="false" afterPath="$PROJECT_DIR$/AutoServiceAW.API/obj/rider.project.restore.info" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="EmbeddingIndexingInfo">
+    <option name="cachedIndexableFilesCount" value="343" />
+    <option name="fileBasedEmbeddingIndicesEnabled" value="true" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="McpProjectServerCommands">
+    <commands />
+    <urls />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 8
+}</component>
+  <component name="ProjectId" id="3FY4mxxsu54ZyXVL0Imw0bqftas" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.MCP Project settings loaded": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.cidr.known.project.marker": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "RunOnceActivity.readMode.enableVisualFormatting": "true",
+    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
+    "cidr.known.project.marker": "true",
+    "codeWithMe.voiceChat.enabledByDefault": "false",
+    "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
+    "git-widget-placeholder": "main",
+    "junie.onboarding.icon.badge.shown": "true",
+    "nodejs_package_manager_path": "npm",
+    "to.speed.mode.migration.done": "true",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="8f0b20f9-a116-410c-857a-c58df69da692" name="Changes" comment="" />
+      <created>1782238842142</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1782238842142</updated>
+      <workItem from="1782238846015" duration="43000" />
+      <workItem from="1782238930077" duration="138000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="UnityProjectConfiguration" hasMinimizedUI="false" />
+  <component name="VcsManagerConfiguration">
+    <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <breakpoint enabled="true" type="DotNet_Exception_Breakpoints">
+          <properties exception="System.OperationCanceledException" breakIfHandledByOtherCode="false" displayValue="System.OperationCanceledException" />
+          <option name="timeStamp" value="1" />
+        </breakpoint>
+        <breakpoint enabled="true" type="DotNet_Exception_Breakpoints">
+          <properties exception="System.Threading.Tasks.TaskCanceledException" breakIfHandledByOtherCode="false" displayValue="System.Threading.Tasks.TaskCanceledException" />
+          <option name="timeStamp" value="2" />
+        </breakpoint>
+        <breakpoint enabled="true" type="DotNet_Exception_Breakpoints">
+          <properties exception="System.Threading.ThreadAbortException" breakIfHandledByOtherCode="false" displayValue="System.Threading.ThreadAbortException" />
+          <option name="timeStamp" value="3" />
+        </breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+</project>
