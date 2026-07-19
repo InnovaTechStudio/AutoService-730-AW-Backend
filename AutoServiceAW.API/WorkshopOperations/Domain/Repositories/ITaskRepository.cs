@@ -12,18 +12,43 @@ public interface ITaskRepository : IBaseRepository<Task>
     #region Methods
 
     /// <summary>
-    /// Retrieves all tasks linked to a specific work order identifier sequence asynchronously.
+    /// Retrieves all registered tasks including their associated parts.
     /// </summary>
-    /// <param name="workOrderId">The unique identifier of the target work order.</param>
-    /// <returns>A task that represents the asynchronous operation. The task result contains an enumerable collection of matching <see cref="Task"/> entities.</returns>
-    Task<IEnumerable<Task>> FindByWorkOrderIdAsync(int workOrderId);
+    /// <returns>
+    /// A collection containing all tasks with their parts loaded.
+    /// </returns>
+    Task<IEnumerable<Task>> ListWithPartsAsync();
 
     /// <summary>
-    /// Retrieves all tasks assigned to a specific mechanic identifier sequence asynchronously.
+    /// Retrieves a task by its identifier including its associated parts.
     /// </summary>
-    /// <param name="mechanicId">The unique identifier of the target mechanic.</param>
-    /// <returns>A task that represents the asynchronous operation. The task result contains an enumerable collection of matching <see cref="Task"/> entities.</returns>
-    Task<IEnumerable<Task>> FindByMechanicIdAsync(int mechanicId);
+    /// <param name="id">The task identifier.</param>
+    /// <returns>
+    /// The matching task with its parts loaded, or null.
+    /// </returns>
+    Task<Task?> FindByIdWithPartsAsync(int id);
+
+    /// <summary>
+    /// Retrieves all tasks linked to a specific work order.
+    /// </summary>
+    /// <param name="workOrderId">The work order identifier.</param>
+    /// <returns>
+    /// The matching tasks with their parts loaded.
+    /// </returns>
+    Task<IEnumerable<Task>> FindByWorkOrderIdAsync(
+        int workOrderId
+    );
+
+    /// <summary>
+    /// Retrieves all tasks assigned to a specific mechanic.
+    /// </summary>
+    /// <param name="mechanicId">The mechanic identifier.</param>
+    /// <returns>
+    /// The matching tasks with their parts loaded.
+    /// </returns>
+    Task<IEnumerable<Task>> FindByMechanicIdAsync(
+        int mechanicId
+    );
 
     #endregion
 }

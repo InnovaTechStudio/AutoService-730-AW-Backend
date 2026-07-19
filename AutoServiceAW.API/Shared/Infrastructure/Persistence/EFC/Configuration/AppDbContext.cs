@@ -93,7 +93,18 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
         builder.Entity<InventoryItem>().Property(i => i.Name).IsRequired().HasMaxLength(150);
         builder.Entity<InventoryItem>().Property(i => i.Category).IsRequired().HasMaxLength(50);
         builder.Entity<InventoryItem>().Property(i => i.Brand).HasMaxLength(50);
+        builder.Entity<InventoryItem>().Property(i => i.QualityTier).IsRequired().HasMaxLength(20).HasDefaultValue("STANDARD");
+        builder.Entity<InventoryItem>().Property(i => i.Specification).HasMaxLength(120);
+        builder.Entity<InventoryItem>().Property(i => i.Presentation).HasMaxLength(100);
+        builder.Entity<InventoryItem>().Property(i => i.UnitMeasure).IsRequired().HasMaxLength(30).HasDefaultValue("UNIT");
+        builder.Entity<InventoryItem>().Property(i => i.PurchasePrice).IsRequired().HasColumnType("decimal(10,2)");
         builder.Entity<InventoryItem>().Property(i => i.UnitPrice).IsRequired().HasColumnType("decimal(10,2)");
+        builder.Entity<InventoryItem>().Ignore(i => i.SalePrice);
+        builder.Entity<InventoryItem>().Ignore(i => i.ProfitPerUnit);
+        builder.Entity<InventoryItem>().Ignore(i => i.MarginPercentage);
+        builder.Entity<InventoryItem>().Ignore(i => i.InventoryCostValue);
+        builder.Entity<InventoryItem>().Ignore(i => i.PotentialSalesValue);
+        builder.Entity<InventoryItem>().Ignore(i => i.PotentialProfitValue);
         builder.Entity<InventoryItem>().Property(i => i.Stock).IsRequired().HasDefaultValue(0);
         builder.Entity<InventoryItem>().Property(i => i.MinStock).IsRequired().HasDefaultValue(5);
         builder.Entity<InventoryItem>().Property(i => i.Image).HasColumnType("longtext");
@@ -148,9 +159,14 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
         builder.Entity<Task>().Property(t => t.Description).IsRequired().HasMaxLength(250);
         builder.Entity<Task>().Property(t => t.Status).IsRequired().HasMaxLength(30);
         builder.Entity<Task>().Property(t => t.Priority).HasMaxLength(20);
+        builder.Entity<Task>().Property(t => t.LaborCost).HasColumnType("decimal(10,2)");
         builder.Entity<Task>().Property(t => t.LaborPrice).HasColumnType("decimal(10,2)");
-        builder.Entity<Task>().Property(t => t.MaterialsCost) .HasColumnType("decimal(10,2)");
+        builder.Entity<Task>().Property(t => t.MaterialsPurchaseCost).HasColumnType("decimal(10,2)");
+        builder.Entity<Task>().Property(t => t.MaterialsCost).HasColumnType("decimal(10,2)");
         builder.Entity<Task>().Ignore(t => t.TotalCost);
+        builder.Entity<Task>().Ignore(t => t.TotalInternalCost);
+        builder.Entity<Task>().Ignore(t => t.GrossProfit);
+        builder.Entity<Task>().Ignore(t => t.MarginPercentage);
         builder.Entity<Task>().Property(t => t.TechnicalDiagnosis).HasMaxLength(1000);
         builder.Entity<Task>().Property(t => t.CustomerExplanation).HasMaxLength(1000);
         builder.Entity<Task>().Property(t => t.InternalObservation).HasMaxLength(500);
@@ -168,7 +184,13 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
         builder.Entity<TaskPart>().HasKey(tp => tp.Id);
         builder.Entity<TaskPart>().Property(tp => tp.Id).IsRequired().ValueGeneratedOnAdd();
         builder.Entity<TaskPart>().Property(tp => tp.Name).IsRequired().HasMaxLength(150);
+        builder.Entity<TaskPart>().Property(tp => tp.Brand).HasMaxLength(50);
+        builder.Entity<TaskPart>().Property(tp => tp.QualityTier).IsRequired().HasMaxLength(20).HasDefaultValue("STANDARD");
+        builder.Entity<TaskPart>().Property(tp => tp.PurchasePrice).HasColumnType("decimal(10,2)");
         builder.Entity<TaskPart>().Property(tp => tp.UnitPrice).HasColumnType("decimal(10,2)");
+        builder.Entity<TaskPart>().Ignore(tp => tp.TotalCost);
+        builder.Entity<TaskPart>().Ignore(tp => tp.TotalSale);
+        builder.Entity<TaskPart>().Ignore(tp => tp.GrossProfit);
         
         builder.Entity<TaskPart>()
             .HasOne(tp => tp.Task)

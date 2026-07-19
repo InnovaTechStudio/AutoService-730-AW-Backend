@@ -34,6 +34,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+
 /// <summary>
 /// The main entry point configuration file for the Web Application.
 /// Sets up the dependency injection container, authentication infrastructure middleware, multi-tenant database context connections, and HTTP pipelines.
@@ -93,10 +94,14 @@ builder.Services.Configure<RouteOptions>(options => options.LowercaseUrls = true
 
 // Extract the relational primary database connection string setting sequence.
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+
 builder.Services.AddDbContext<AppDbContext>(options =>
 {
     if (connectionString != null)
-        options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
+        options.UseMySql(
+            connectionString,
+            ServerVersion.AutoDetect(connectionString)
+        );
 });
 
 #endregion
@@ -146,30 +151,38 @@ var key = Encoding.ASCII.GetBytes(jwtSettings["Secret"]!);
 
 builder.Services.AddAuthentication(options =>
     {
-        options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-        options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+        options.DefaultAuthenticateScheme =
+            JwtBearerDefaults.AuthenticationScheme;
+
+        options.DefaultChallengeScheme =
+            JwtBearerDefaults.AuthenticationScheme;
     })
     .AddJwtBearer(options =>
     {
-        options.TokenValidationParameters = new TokenValidationParameters
-        {
-            ValidateIssuer = true,
-            ValidateAudience = true,
-            ValidateLifetime = true,
-            ValidateIssuerSigningKey = true,
-            ValidIssuer = jwtSettings["Issuer"],
-            ValidAudience = jwtSettings["Audience"],
-            IssuerSigningKey = new SymmetricSecurityKey(key)
-        };
+        options.TokenValidationParameters =
+            new TokenValidationParameters
+            {
+                ValidateIssuer = true,
+                ValidateAudience = true,
+                ValidateLifetime = true,
+                ValidateIssuerSigningKey = true,
+                ValidIssuer = jwtSettings["Issuer"],
+                ValidAudience = jwtSettings["Audience"],
+                IssuerSigningKey =
+                    new SymmetricSecurityKey(key)
+            };
     });
 
 // Configure open cross-origin sharing policies to authorize client UI system components integrations.
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowAll", policy => 
-        policy.AllowAnyOrigin()
-            .AllowAnyMethod()
-            .AllowAnyHeader());
+    options.AddPolicy(
+        "AllowAll",
+        policy =>
+            policy.AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader()
+    );
 });
 
 #endregion
@@ -192,12 +205,29 @@ app.UseAuthorization();
 // Expose mapping routes matching operational controller boundaries.
 app.MapControllers();
 
-using (var scope = app.Services.CreateScope())
+/*
+ * Database migrations are executed only when explicitly enabled
+ * through the Database:ApplyMigrationsOnStartup configuration.
+ *
+ * The default value is false when the property does not exist,
+ * preventing accidental changes to an external or production database.
+ */
+var applyMigrationsOnStartup =
+    builder.Configuration.GetValue<bool>(
+        "Database:ApplyMigrationsOnStartup"
+    );
+
+if (applyMigrationsOnStartup)
 {
+    using var scope = app.Services.CreateScope();
+
     var services = scope.ServiceProvider;
+
     try
     {
-        var context = services.GetRequiredService<AppDbContext>();
+        var context =
+            services.GetRequiredService<AppDbContext>();
+
         if (context.Database.GetPendingMigrations().Any())
         {
             context.Database.Migrate();
@@ -205,10 +235,16 @@ using (var scope = app.Services.CreateScope())
     }
     catch (Exception ex)
     {
-        var logger = services.GetRequiredService<ILogger<Program>>();
-        logger.LogError(ex, "An error occurred while applying migrations at startup.");
+        var logger =
+            services.GetRequiredService<ILogger<Program>>();
+
+        logger.LogError(
+            ex,
+            "An error occurred while applying migrations at startup."
+        );
     }
 }
+
 // Execute the async background web runner container.
 app.Run();
 

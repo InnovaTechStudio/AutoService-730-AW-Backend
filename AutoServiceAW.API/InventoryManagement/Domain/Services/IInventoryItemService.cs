@@ -45,5 +45,21 @@ public interface IInventoryItemService
     Task DeleteAsync(int id);
     
     Task<bool> ConsumeStockAsync(int inventoryItemId, int quantity);
+/// <summary>
+/// Increases physical stock through a registered provider receipt.
+/// </summary>
+/// <param name="inventoryItemId">
+/// The identifier of the received inventory item.
+/// </param>
+/// <param name="quantity">
+/// The quantity physically received from the provider.
+/// </param>
+/// <returns>
+/// The updated inventory item or null when it does not exist.
+/// </returns>
+Task<InventoryItem?> ReceiveStockAsync(
+    int inventoryItemId,
+    int quantity
+);
     #endregion
 }
