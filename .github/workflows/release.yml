@@ -3,40 +3,42 @@ name: Build and Release ASP.NET Core
 on:
   push:
     tags:
-      - 'v*'
+      - 'v*.*.*'
 
 permissions:
   contents: write
 
 jobs:
-  build:
+  release:
     runs-on: ubuntu-latest
 
     steps:
 
-      - name: Checkout
+      - name: Descargar código
         uses: actions/checkout@v4
 
-      - name: Setup .NET
+      - name: Configurar .NET 10
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: '10.0.x'
 
-      - name: Restore
+      - name: Restaurar dependencias
         run: dotnet restore AutoServiceAW.API/AutoServiceAW.API.csproj
 
-      - name: Build
+      - name: Compilar
         run: dotnet build AutoServiceAW.API/AutoServiceAW.API.csproj --configuration Release --no-restore
 
-      - name: Publish
+      - name: Publicar
         run: dotnet publish AutoServiceAW.API/AutoServiceAW.API.csproj --configuration Release --no-build --output publish
 
-      - name: Compress Publish Folder
+      - name: Comprimir publicación
         run: |
           cd publish
-          zip -r ../AutoServiceAW-v${{ github.ref_name }}.zip .
+          zip -r ../AutoServiceAW.zip .
 
-      - name: Create GitHub Release
+      - name: Crear Release y subir ZIP
         uses: softprops/action-gh-release@v2
         with:
-          files: AutoServiceAW-v${{ github.ref_name }}.zip
+          tag_name: ${{ github.ref_name }}
+          name: Release ${{ github.ref_name }}
+          files: AutoServiceAW.zip
